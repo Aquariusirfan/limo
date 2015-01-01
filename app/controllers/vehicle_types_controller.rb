@@ -34,6 +34,7 @@ class VehicleTypesController < ApplicationController
   end
 
   def destroy
+    @vehicle_type = VehicleType.find(params[:id])
     @vehicle_type.destroy
     respond_to do |format|
       format.html { redirect_to vehicle_types_url, notice: 'Vehicle Type was successfully destroyed.' }
