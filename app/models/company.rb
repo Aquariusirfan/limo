@@ -3,6 +3,6 @@ class Company < ActiveRecord::Base
   validates_uniqueness_of :name
   belongs_to :user
   def add_domain_to_company
-    self.company_domain = self.name
+    self.company_domain = self.name.downcase!
   end
 end

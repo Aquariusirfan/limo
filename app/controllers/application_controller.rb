@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   
     def after_sign_in_path_for(resource)
       if resource.has_role? :admin
-        "/admin"
+        admin_url(:subdomain => resource.company.company_domain)
       else
         root_url(:subdomain => resource.company.company_domain)
       end
