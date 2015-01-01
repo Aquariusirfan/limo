@@ -5,6 +5,7 @@ class Admin::CompaniesController < ApplicationController
   def new
     @user = User.new
     @user.build_company
+    @user.company.build_reservation_setting
   end
   
   def create
@@ -21,6 +22,6 @@ class Admin::CompaniesController < ApplicationController
   
   private
   def company_params
-    params.require(:user).permit(:email,:password,:password_confirmation,:company_attributes=>[:id,:name,:phone1,:phone2,:show_driver_price,:dot_number,:lcc_mc,:fax,:website,:address,:time_zone])
+    params.require(:user).permit(:email,:password,:password_confirmation,:company_attributes=>[:id,:name,:phone1,:phone2,:show_driver_price,:dot_number,:lcc_mc,:fax,:website,:address,:time_zone,:reservation_setting_attributes=>[:minimum_lead_time,:gratuity_rate,:tax_rate,:distance_type,:currency,:rate_to_display,:request_min_hours,:request_max_hours,:rate_disclaimer,:credit_card_disclaimer,:analytics_code]])
   end
 end
