@@ -6,6 +6,6 @@ class Company < ActiveRecord::Base
   has_many :vehicle_type
 
   def add_domain_to_company
-    self.company_domain = self.name
+    self.company_domain = self.name.downcase!
   end
 end
