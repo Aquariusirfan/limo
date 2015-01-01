@@ -44,3 +44,5 @@ gem 'devise'
 gem 'carrierwave'
 
 gem "rolify"
+
+gem "paperclip", "~> 4.2"

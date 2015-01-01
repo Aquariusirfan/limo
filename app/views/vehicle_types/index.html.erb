@@ -1,0 +1,49 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Vehicle Types</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-edit"></i> New Vehicle Type</li>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="table-responsive">
+        <% unless @vehicle_types.blank? %>
+          <table class="table table-bordered table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Capacity</th>
+                <th>Photo</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @vehicle_types.each do |vehicle| %>
+                <tr>
+                  <td><%= vehicle.code %></td>
+                  <td><%= vehicle.name %></td>
+                  <td><%= vehicle.capacity %></td>
+                  <td><%= image_tag(vehicle.image.url) %></td>
+                  <td><%= link_to 'Edit', edit_vehicle_type_path(vehicle),:class => "btn btn-minier btn-primary" %>
+                    <%= link_to 'Destroy', vehicle_type_path(vehicle), :class => "btn medium btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <%else%>
+          No Vehicle Found.
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <br/>
+
+  <%= link_to 'New Vehicle Type', new_vehicle_type_path ,:class => "btn btn-minier btn-primary" %>
+</div>

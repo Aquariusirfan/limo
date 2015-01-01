@@ -1,0 +1,122 @@
+<div id="page-wrapper">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Reservation Settings</h1>
+      <ol class="breadcrumb">
+        <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-edit"></i> Edit Settings</li>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= form_for([@reservation_setting], :html => {:class=>"form-horizontal"}) do |f| %>
+        <%= f.hidden_field :company_id, :value=> current_user.company.id %>
+        <div class="form-group">
+          <label>Minimum Lead Team</label>
+          <%= f.select :minimum_lead_time, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6]],{}, :class=>"form-control" %>
+          <label><small style="color: grey">Number of (hours) notice required for online reservations </small></label>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <label>Gratuity Rate</label>
+            <%= f.text_field :gratuity_rate, :class=> "form-control", :placeholder=>"Rate" %>
+            <div class="input-group-addon">%</div>
+          </div>
+          <label><small style="color: grey">The default gratuity rate applied to new reservations </small></label>
+        </div>
+
+        <div class="form-group">
+          <label>User selectable tip</label>
+          <div class="radio">
+            <%= f.label :selectable_tip, "Yes", :value => "true"  %>
+            <%= f.radio_button :selectable_tip, true %>
+            <br/>
+            <%= f.label :selectable_tip, "No", :value => "false" %>
+            <%= f.radio_button :selectable_tip, false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <label>Tax Rate</label>
+            <%= f.text_field :tax_rate, :class=> "form-control", :placeholder=>"Rate" %>
+            <div class="input-group-addon">%</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Distance type</label>
+          <%= f.select :distance_type, options_for_select([['Miles' ,'Miles'], ['Kilometers', 'Kilometers']]),{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Currency</label>
+          <%= f.select :currency, options_for_select([['United States Dollars - USD' ,'United States Dollars - USD'], ['Canadian Dollars - CAD', 'Canadian Dollars - CAD'], ['Australian Dollars - AUD', 'Australian Dollars - AUD']]),{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Rate to display</label>
+          <%= f.select :rate_to_display, options_for_select([['Sub total' ,'Sub total'], ['Base rate', 'Base rate']]),{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Request minimum hrs</label>
+          <%= f.select :request_min_hours, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6]],{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Request maximum hrs</label>
+          <%= f.select :request_max_hours, [["0", 0], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6]],{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Auto send request summary?</label>
+          <div class="radio">
+            <%= f.label :request_summary, "Yes", :value => "true"  %>
+            <%= f.radio_button :request_summary, true %>
+            <br/>
+            <%= f.label :request_summary, "No", :value => "false" %>
+            <%= f.radio_button :request_summary, false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Auto send confirmation summary?</label>
+          <div class="radio">
+            <%= f.label :confirmation_summary, "Yes", :value => "true"  %>
+            <%= f.radio_button :confirmation_summary, true %>
+            <br/>
+            <%= f.label :confirmation_summary, "No", :value => "false" %>
+            <%= f.radio_button :confirmation_summary, false %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Rate disclaimer</label>
+          <%= f.text_area :rate_disclaimer, :class=> "form-control", :rows=>"3" %>
+        </div>
+
+        <div class="form-group">
+          <label>Credit card disclaimer</label>
+          <%= f.text_area :credit_card_disclaimer, :class=> "form-control", :rows=>"3", :placeholder=>"Your credit card information is required to confirm your reservation. " %>
+        </div>
+
+        <div class="form-group">
+          <label>Google analytics code</label>
+          <%= f.text_field :analytics_code, :class=> "form-control" %>
+          <label><small style="color: grey">i.e. UA-XXXXXXX-Y</small></label>
+        </div>
+
+        <%= f.submit "Update Settings", :class=> "btn btn-primary"%>
+      <%end%>
+    </div>
+
+  </div><!-- /.row -->
+
+</div><!--
