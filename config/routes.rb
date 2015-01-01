@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     resources :companies 
   end
   
-  constraints(Subdomain) do
-    get '/' => 'home#index'
-  end
+#  constraints(Subdomain) do
+#    get '/' => 'home#index'
+#  end
   
 end

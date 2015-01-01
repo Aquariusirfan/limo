@@ -1,0 +1,43 @@
+<section id="contact" style="margin-top: 30px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2>Log In</h2>
+        <br>
+      </div>
+    </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="row control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <%= f.label :email %>
+              <%= f.email_field :email,:placeholder=>"Email", autofocus: true,:class=>"form-control validate[required,custom[email]]" %>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="row control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <%= f.label :password %>
+              <%= f.password_field :password,:placeholder=>"Password", autocomplete: "off",:class=>"form-control validate[required]" %>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+
+          <br>
+          <div id="success"></div>
+          <div class="row">
+            <div class="form-group">
+              <%= f.submit "LOG IN", :class=>"btn btn-success btn-lg" %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</section>
+
+
