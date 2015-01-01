@@ -19,23 +19,12 @@
               <i class="fa fa-comments fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">456</p>
-              <p class="announcement-text">New Mentions!</p>
+              <p class="announcement-heading"><%= User.all.count - 1 %></p>
+              <p class="announcement-text">Total Users!</p>
             </div>
           </div>
         </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom">
-            <div class="row">
-              <div class="col-xs-6">
-                View Mentions
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
-            </div>
-          </div>
-        </a>
+        
       </div>
     </div>
     <div class="col-lg-3">
@@ -46,23 +35,12 @@
               <i class="fa fa-check fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">12</p>
-              <p class="announcement-text">To-Do Items</p>
+              <p class="announcement-heading"><%= Company.all.count - 1 %></p>
+              <p class="announcement-text">Total Companies</p>
             </div>
           </div>
         </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom">
-            <div class="row">
-              <div class="col-xs-6">
-                Complete Tasks
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
-            </div>
-          </div>
-        </a>
+        
       </div>
     </div>
     <div class="col-lg-3">
@@ -73,23 +51,12 @@
               <i class="fa fa-tasks fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">18</p>
-              <p class="announcement-text">Crawl Errors</p>
+              <p class="announcement-heading"><%= ReservationSetting.all.size %></p>
+              <p class="announcement-text">Total Reservations</p>
             </div>
           </div>
         </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom">
-            <div class="row">
-              <div class="col-xs-6">
-                Fix Issues
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
-            </div>
-          </div>
-        </a>
+        
       </div>
     </div>
     <div class="col-lg-3">
@@ -100,23 +67,12 @@
               <i class="fa fa-comments fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">56</p>
-              <p class="announcement-text">New Orders!</p>
+              <p class="announcement-heading"><%= VehicleType.all.size %></p>
+              <p class="announcement-text">Total Vehicles</p>
             </div>
           </div>
         </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom">
-            <div class="row">
-              <div class="col-xs-6">
-                Complete Orders
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
-            </div>
-          </div>
-        </a>
+        
       </div>
     </div>
   </div><!-- /.row -->
