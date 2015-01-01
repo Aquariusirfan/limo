@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   #before_action :check_domain
   before_action :authenticate_user!
-  #before_action :check_if_admin_is_login?
+  before_action :check_if_admin_is_login?
   
   def index
     
