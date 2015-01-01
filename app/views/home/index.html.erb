@@ -11,70 +11,37 @@
   </div><!-- /.row -->
 
   <div class="row">
-    <div class="col-lg-3">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-comments fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading"><%= User.all.count - 1 %></p>
-              <p class="announcement-text">Total Users!</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-check fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading"><%= Company.all.count - 1 %></p>
-              <p class="announcement-text">Total Companies</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-tasks fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading"><%= ReservationSetting.all.size %></p>
-              <p class="announcement-text">Total Reservations</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-comments fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading"><%= VehicleType.all.size %></p>
-              <p class="announcement-text">Total Vehicles</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone1</th>
+          <th>Phone2</th>
+          <th>Dot Number</th>
+          <th>Lcc Mc</th>
+          <th>License Number</th>
+          <th>Fax</th>
+          <th>Website</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= current_user.company.name%></td>
+          <td><%= current_user.company.phone1%></td>
+          <td><%= current_user.company.phone2%></td>
+          <td><%= current_user.company.dot_number%></td>
+          <td><%= current_user.company.lcc_mc%></td>
+          <td><%= current_user.company.license_number%></td>
+          <td><%= current_user.company.fax%></td>
+          <td><%= current_user.company.website%></td>
+          <td><%= current_user.company.address%></td>
+        </tr>
+      </tbody>
+    </table>    
+
+
   </div><!-- /.row -->
 
 </div><!-- /#page-wrapper -->
