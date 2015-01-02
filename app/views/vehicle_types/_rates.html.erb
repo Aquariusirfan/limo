@@ -126,7 +126,7 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          Hourly Estimate Settings for Sedan
+          Hourly Estimate Settings for <%= @vehicle_type.name %>
         </div>
         <div class="panel-body">
           <div id="hourly">
@@ -134,9 +134,9 @@
 
             <div class="">
 
-              <div class="medium-top-margin">
-                <strong>Hourly minimum:</strong> <span data-type="input" data-activator="#minimum_hours_edit_button" data-attribute="minimum_hours" data-object="vehicle_type" data-url="/vehicle_types/1957" id="best_in_place_vehicle_type_1957_minimum_hours" class="best_in_place">3.0</span> hour(s)
-                <a class="" id="minimum_hours_edit_button" href="#">edit</a>
+              <div class="medium-top-margin" id="hourly_minimum">
+                <strong>Hourly minimum:</strong> <span class="best_in_place"><%= @vehicle_type.hourly_minimum ? @vehicle_type.hourly_minimum : '0.0'%></span> hour(s)
+                  <a href="/vehicle_types/get_hourly_minimum" data-remote="true">edit</a>
               </div>
 
               <table class="table table-condensed table-striped small m-t-md">

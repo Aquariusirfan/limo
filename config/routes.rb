@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       get :get_base_transfer_distance
       post :update_base_transfer_distance
       post :add_distance_estimation_settings
+      get :get_hourly_minimum
+      post :update_hourly_minimum
     end
   end
   resources :reservation_settings 

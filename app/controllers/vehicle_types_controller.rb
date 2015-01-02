@@ -1,6 +1,6 @@
 class VehicleTypesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_vehicle , only: [:show,:edit,:update,:destroy,:update_base_transfer_distance,:add_distance_estimation_settings]
+  before_action :set_vehicle , only: [:show,:edit,:update,:destroy,:update_base_transfer_distance,:add_distance_estimation_settings,:update_hourly_minimum]
 
   def index
     @vehicle_types = VehicleType.all
@@ -51,6 +51,14 @@ class VehicleTypesController < ApplicationController
   
   def update_base_transfer_distance
     @vehicle_type.update_attribute(:base_transfer_distance,params[:base_transfer_distance])
+  end
+  
+  def get_hourly_minmum
+    
+  end
+  
+  def update_hourly_minimum
+     @vehicle_type.update_attribute(:hourly_minimum,params[:hourly_minimum])
   end
   
   def add_distance_estimation_settings
