@@ -4,7 +4,11 @@
       <h1>Vehicle Types</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><i class="fa fa-edit"></i> New Vehicle Type</li>
+        <% if @vehicle_type.new_record? %>
+          <li class="active"><i class="fa fa-edit"></i> New Vehicle Type</li>
+        <%else%>
+          <li class="active"><i class="fa fa-edit"></i> Edit Vehicle Type</li>
+        <%end%>
       </ol>
       <%= render 'layouts/messages' %>
     </div>
@@ -56,8 +60,10 @@
 
         <div class="actions">
           <%= f.submit :class=> "btn btn-primary"%>
+          <%= link_to 'Back', vehicle_types_path ,:class => "btn btn-minier btn-primary" %>
         </div>
       <% end %>
+
     </div>
 
   </div><!-- /.row -->

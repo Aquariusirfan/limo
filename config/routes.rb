@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :reservation_settings 
   resources :rate_setups , only: :index 
   resources :distance_estimation_settings , only: [:edit,:update] 
+  resources :services
+  resources :places
     
 
 end
