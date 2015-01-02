@@ -1,8 +1,9 @@
 class PlacesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_place , only: [:show,:edit,:update,:destroy]
 
   def index
-    @places = Place.all
+    @places = current_user.company.places
   end
 
   def new
@@ -20,11 +21,10 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    @place = Place.find(params[:id])
+    
   end
 
   def update
-    @place = Place.find(params[:id])
     if @place.update_attributes(place_params)
       flash[:notice] = "Place was successfully updated."
       redirect_to places_path
@@ -34,7 +34,6 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-    @place = Place.find(params[:id])
     @place.destroy
     respond_to do |format|
       format.html { redirect_to places_url, notice: 'Places was successfully destroyed.' }
@@ -46,6 +45,10 @@ class PlacesController < ApplicationController
 
   def place_params
     params[:place].permit!
+  end
+  
+  def set_place
+    @place = Place.find(params[:id])
   end
 
 end

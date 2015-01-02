@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @services = Service.all
+    @services = current_user.company.services
   end
 
   def new
