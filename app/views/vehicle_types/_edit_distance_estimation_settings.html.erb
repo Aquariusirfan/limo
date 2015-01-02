@@ -1,0 +1,66 @@
+<form class="form form-horizontal" id="form">
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label for="type" class="control-label col-sm-3">Rate group</label>
+      <div class="controls col-sm-8">
+        <select class="form-control"><option>Regular</option></select>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="max_volume" class="control-label col-sm-3">Up to (miles)</label>
+      <div class="controls col-sm-8">
+        <input type="text" value="<%= @setting.up_to_mile %>" id="edit_up_to_mile" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="max_volume" class="control-label col-sm-3">Base charge</label>
+      <div class="controls col-sm-8">
+        <input type="text" value="<%= @setting.base_charge %>" id="edit_base_charge" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cost_per_unit" class="control-label col-sm-3">Cost Per Distance Unit</label>
+      <div class="controls col-sm-8">
+        <input type="text" value="<%= @setting.cost_per_distance %>" id="edit_cost_per_distance" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cost_per_mile" class="control-label col-sm-3">Miles Per Distance Unit</label>
+      <div class="controls col-sm-8">
+        <input type="text" value="<%= @setting.miles_per_distance %>" id="edit_miles_per_distance" data-bind="value: distance_unit" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="update_distance_estimation_settings();">Update Distance Estimate</button>
+  </div>
+</form>
+<script type="text/javascript">
+  var setting_id = <%= @setting.id %>
+  function update_distance_estimation_settings()
+  {
+    $('#edit_distance_estimate_modal').modal('hide');
+    var rate_group = "Regular";
+    var up_to_mile = $('#edit_up_to_mile').val();
+    var base_charge = $('#edit_base_charge').val();
+    var cost_per_distance = $('#edit_cost_per_distance').val();
+    var miles_per_distance = $('#edit_miles_per_distance').val();
+    $.ajax({
+      url: '/distance_estimation_settings/'+setting_id,
+      type: "PUT",
+      data: {
+        id: setting_id,
+        rate_group: rate_group,
+        up_to_mile: up_to_mile,
+        base_charge: base_charge,
+        cost_per_distance: cost_per_distance,
+        miles_per_distance: miles_per_distance
+      }
+    });
+  }
+</script>

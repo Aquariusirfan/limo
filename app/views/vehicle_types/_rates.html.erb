@@ -37,7 +37,7 @@
                           <td><%= setting.cost_per_distance %></td>
                           <td><%= setting.miles_per_distance %></td>
                           <td>
-                            <a data-toggle="modal" href="#distance_estimate_modal" class="btn btn-xs btn-primary"><i class="icon-edit"></i> Edit</a>
+                            <a href="/distance_estimation_settings/<%= setting.id %>/edit" class="btn btn-xs btn-primary" data-remote="true"><i class="icon-edit"></i> Edit</a>
                             <a class="btn btn-xs btn-danger"><i class="icon-trash"></i> Delete</a>
                           </td>
                         </tr>
@@ -45,11 +45,11 @@
                     </tbody>
                   </table>
                 <%end%>
-                <a href="#distance_estimate_modal" data-toggle="modal" class="btn btn-primary btn-mini"><i class="icon-plus"></i> New Distance Estimate Setting</a>
+                <a href="#add_distance_estimate_modal" data-toggle="modal" class="btn btn-primary btn-mini"><i class="icon-plus"></i> New Distance Estimate Setting</a>
 
               </div> <!-- /widget-content -->
             </div>
-            <div id="distance_estimate_modal" class="modal">
+            <div id="add_distance_estimate_modal" class="modal">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -98,6 +98,17 @@
                       <button type="button" class="btn btn-primary" onclick="add_distance_estimation_settings();">Add Distance Estimate</button>
                     </div>
                   </form>
+                </div>
+              </div>
+            </div>
+            <div id="edit_distance_estimate_modal" class="modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close">×</button>
+                    <h3>Distance Estimate Settings</h3>
+                  </div>
+                  <div id="distance_estimation_settings_div"></div>
                 </div>
               </div>
             </div>
@@ -281,7 +292,7 @@
 //////////////////////////////////////////////////////////
   function add_distance_estimation_settings()
   {
-    $('#distance_estimate_modal').modal('hide');
+    $('#add_distance_estimate_modal').modal('hide');
     var rate_group = "Regular";
     var up_to_mile = $('#up_to_mile').val();
     var base_charge = $('#base_charge').val();
@@ -300,5 +311,7 @@
       }
     });
   }
+  
+  
 
 </script>
