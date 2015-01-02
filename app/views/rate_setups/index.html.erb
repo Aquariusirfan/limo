@@ -1,0 +1,49 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="page-title">Rate Setup</h4>
+      <div class="highlight-box m-t-lg well well-sm">
+        <p>Hourly Rates</p>
+        <div class="alert alert-info m-t-md small">
+          Use hourly rates to set the hourly rates for each vehicle type in your fleet. Select a vehicle below to
+          set it's hourly rate
+        </div>
+        
+        <%current_user.company.vehicle_types.each do |v|%>
+          <%= link_to "#{v.name}", vehicle_type_path(v), class: "btn" %>
+        <%end%>
+
+      </div>
+
+      <div class="highlight-box well well-sm m-t-lg">
+        <p>Distance Based Rates</p>
+        <div class="alert alert-info m-t-md small">
+          Distance rates are a simple way to set one-way/transfer rates. Specify a minimum distance and rate for each vehicle
+          and a rate per mile for each extra distance unit(miles)
+        </div>
+
+        <a class="btn" href="/vehicle_types/1957">Sedan</a>
+
+        <a class="btn" href="/vehicle_types/1958">SUV</a>
+
+        <a class="btn" href="/vehicle_types/2010">10 PAX VAN</a>
+
+        <a class="btn" href="/vehicle_types/1959">Stretch Limo</a>
+
+      </div>
+
+      <div class="highlight-box m-t-md well well-sm">
+        <p>Zone to Zone Based Rates</p>
+        <div class="alert alert-info m-t-md small">
+          Zone to zone rates give you the ultimate flexibily to define your service area into various zones, so that you
+          can define flat rates from point to point. For each zone, you will attach any number of zip codes to it and you
+          will be able to define a flat rate from zone to zone. A zone to zone flat rate will always override a distance based
+          rate if the zone to zone rate exists for the quote request.
+
+        </div>
+
+        <a class="btn" href="/rates/flat_rates">Setup Zone-to-Zone based rates</a>
+      </div>
+    </div>
+  </div>
+</div>
