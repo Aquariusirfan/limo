@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:account_update)  { |u| u.permit(:email,
                                      :company_attributes=>[:id,:name,:phone1,:phone2,
-                                     :show_driver_price,:dot_number,:lcc_mc,:fax,
+                                     :show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,
                                      :website,:address,:time_zone]) }
     end
   end
