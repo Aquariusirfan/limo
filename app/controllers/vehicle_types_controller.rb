@@ -3,7 +3,7 @@ class VehicleTypesController < ApplicationController
   before_action :set_vehicle , only: [:show,:edit,:update,:destroy,:update_base_transfer_distance,:add_distance_estimation_settings,:update_hourly_minimum,:add_hourly_estimation_settings]
 
   def index
-    @vehicle_types = VehicleType.all
+    @vehicle_types = current_user.company.vehicle_types
   end
   
   def show
