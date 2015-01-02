@@ -1,0 +1,60 @@
+<form class="form form-horizontal" id="form_hes_new">
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label for="type" class="control-label col-sm-3">Rate group</label>
+      <div class="controls col-sm-8">
+        <select class="form-control"><option>Regular</option></select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="type" class="control-label col-sm-3">Service</label>
+      <div class="controls col-sm-8">
+        <select class="form-control"><option value="">All services</option><option value="3272">Hourly Charter</option></select>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="max_volume" class="control-label col-sm-3">Up to (hours)</label>
+      <div class="controls col-sm-8">
+        <input type="text" value="<%= @setting.up_to_hours %>" id="edit_up_to_hours"class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="max_weight" class="control-label col-sm-3">Hourly Rate</label>
+      <div class="controls col-sm-8">
+        <input type="text" id="edit_hourly_rate" class="form-control" value="<%= @setting.hourly_rate %>">
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="update_hourly_estimation_settings();">Update Hourly Estimate</button>
+  </div>
+</form>
+<script type="text/javascript">
+  var setting_id = <%= @setting.id %>
+  function update_hourly_estimation_settings()
+  {
+    $('#edit_hourly_estimate_modal').modal('hide');
+    var rate_group = "Regular";
+    var up_to_hours = $('#edit_up_to_hours').val();
+    var service = "all";
+    var hourly_rate = $('#edit_hourly_rate').val();
+    $.ajax({
+      url: '/hourly_estimation_settings/' + setting_id,
+      type: "PUT",
+      data: {
+        id: setting_id,
+        rate_group: rate_group,
+        up_to_hours: up_to_hours,
+        service: service,
+        hourly_rate: hourly_rate
+      }
+    });
+  }
+</script>

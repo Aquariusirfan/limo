@@ -117,13 +117,6 @@
       </div>
 
 
-
-
-
-
-
-
-
       <div class="panel panel-default">
         <div class="panel-heading">
           Hourly Estimate Settings for <%= @vehicle_type.name %>
@@ -136,66 +129,64 @@
 
               <div class="medium-top-margin" id="hourly_minimum">
                 <strong>Hourly minimum:</strong> <span class="best_in_place"><%= @vehicle_type.hourly_minimum ? @vehicle_type.hourly_minimum : '0.0'%></span> hour(s)
-                  <a href="/vehicle_types/get_hourly_minimum" data-remote="true">edit</a>
+                <a href="/vehicle_types/get_hourly_minimum" data-remote="true">edit</a>
               </div>
+              <%if @vehicle_type.hourly_estimation_settings.size > 0%>
+                <table class="table table-condensed table-striped small m-t-md">
+                  <thead>
+                    <tr>
+                      <th>Rate group</th>
+                      <th>Service</th>
+                      <th>Up to (hours)</th>
+                      <th>Hourly Rate</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%@vehicle_type.hourly_estimation_settings.each do |setting|%>
+                      <tr>
+                        <td><%= setting.rate_group %></td>
+                        <td><%= setting.service %></td>
+                        <td><%= setting.up_to_hours %> hour(s)</td>
+                        <td>$<%= setting.hourly_rate %></td>
+                        <td>
+                          <a href="/hourly_estimation_settings/<%= setting.id %>/edit" class="btn btn-xs btn-primary" data-remote="true"><i class="icon-edit"></i> Edit</a>
+                          <a href="/hourly_estimation_settings/<%= setting.id %>" class="btn btn-xs btn-danger" data-remote="true" data-method="DELETE" data-confirm="Are you sure"><i class="icon-trash"></i> Delete</a>
+                        </td>
+                      </tr>
+                    <%end%>
+                  </tbody>
 
-              <table class="table table-condensed table-striped small m-t-md">
-                <thead>
-                  <tr>
-                    <th>Rate group</th>
-                    <th>Service</th>
-                    <th>Up to (hours)</th>
-                    <th>Hourly Rate</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody data-bind="template: {name: &quot;hesIndexTemplate&quot;, foreach: items}">
-                  <tr>
-                    <!-- /// 3 -->
-                    <td data-bind="text: rate_group_name">Regular</td>
-                    <td data-bind="text: service_name">All</td>
-                    <td data-bind="text: max_hours+' hour(s)'">24.0 hour(s)</td>
-                    <td data-bind="text: '$'+cost_per_hour">$45.0</td>
-                    <td>
-
-                      <a data-toggle="modal" href="#hourly_estimate_modal" data-bind="click: function() { hesViewModel.editAction($data) }" class="btn btn-xs btn-primary"><i class="icon-edit"></i> Edit</a>
-                      <a data-bind="click: function() { hesViewModel.destroyAction($data) }" class="btn btn-xs btn-danger"><i class="icon-trash"></i> Delete</a>
-
-
-                    </td></tr>
-                </tbody>
-
-              </table>
-              <a data-bind="click: function() { hesViewModel.newAction() }" href="#hourly_estimate_modal" data-toggle="modal" class="btn btn-primary btn-mini"><i class="icon-plus"></i> New Hourly Estimate Setting</a>
+                </table>
+              <%end%>
+              <a href="#add_hourly_estimate_modal" data-toggle="modal" class="btn btn-primary btn-mini"><i class="icon-plus"></i> New Hourly Estimate Setting</a>
 
             </div> <!-- /widget-content -->
 
 
-            <div id="hourly_estimate_modal" class="modal">
+            <div id="add_hourly_estimate_modal" class="modal">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button data-dismiss="modal" class="close">×</button>
                     <h3>Hourly Estimate Setting</h3>
                   </div>
-                  <div data-bind="visible: currentPage() == &quot;new&quot;" style="display: none;">
-                    <div data-bind="template: {name: &quot;hesNewTemplate&quot;, data: tempItem}">
+                  <div>
+                    <div>
                       <form class="form form-horizontal" id="form_hes_new">
                         <div class="modal-body">
-                          <input type="hidden" value="1957" name="hourly_estimate_setting[vehicle_type_id]" id="hourly_estimate_setting_vehicle_type_id" data-bind="value: vehicle_type_id">
-
 
                           <div class="form-group">
                             <label for="type" class="control-label col-sm-3">Rate group</label>
                             <div class="controls col-sm-8">
-                              <select data-bind="options: rateGroups, optionsText: 'name',  optionsValue: 'id', value: rate_group_id" class="form-control"><option value="737">Regular</option></select>
+                              <select class="form-control"><option>Regular</option></select>
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label for="type" class="control-label col-sm-3">Service</label>
                             <div class="controls col-sm-8">
-                              <select data-bind="options: services, optionsText: 'name', optionsCaption: 'All services', optionsValue: 'id', value: service_id" class="form-control"><option value="">All services</option><option value="3272">Hourly Charter</option></select>
+                              <select class="form-control"><option value="">All services</option><option value="3272">Hourly Charter</option></select>
                             </div>
                           </div>
 
@@ -203,13 +194,13 @@
                           <div class="form-group">
                             <label for="max_volume" class="control-label col-sm-3">Up to (hours)</label>
                             <div class="controls col-sm-8">
-                              <input type="text" value="" name="hourly_estimate_setting[max_hours]" id="hourly_estimate_setting_max_hours" data-bind="value: max_hours" class="form-control">
+                              <input type="text" value="" id="up_to_hours"class="form-control">
                             </div>
                           </div>
                           <div class="form-group">
                             <label for="max_weight" class="control-label col-sm-3">Hourly Rate</label>
                             <div class="controls col-sm-8">
-                              <input type="text" value="" name="hourly_estimate_setting[cost_per_hour]" id="hourly_estimate_setting_cost_per_hour" data-bind="value: cost_per_hour" class="form-control">
+                              <input type="text" id="hourly_rate" class="form-control">
                             </div>
                           </div>
 
@@ -217,56 +208,26 @@
 
                         </div>
                         <div class="modal-footer">
-                          <button class="btn btn-primary" data-bind="click: function() { hesViewModel.createAction($data) }">Add Hourly Estimate Setting</button>
+                          <button type="button" class="btn btn-primary" onclick="add_hourly_estimation_settings();">Add Hourly Estimate</button>
                         </div>
                       </form>
                     </div>
                   </div>
-                  <div data-bind="visible: currentPage() == &quot;edit&quot;" style="display: none;">
-                    <div data-bind="template: {name: &quot;hesEditTemplate&quot;, data: tempItem, templateOptions: { selectedItem: selectedItem}}">
-                      <form class="form form-horizontal" id="form_hes_edit">
-                        <div class="modal-body">
-                          <input type="hidden" value="1957" name="hourly_estimate_setting[vehicle_type_id]" id="hourly_estimate_setting_vehicle_type_id" data-bind="value: vehicle_type_id">
 
-                          <div class="form-group">
-                            <label for="type" class="control-label col-sm-3">Rate group</label>
-                            <div class="controls col-sm-8">
-                              <select data-bind="options: rateGroups, optionsText: 'name',  optionsValue: 'id', value: rate_group_id" class="form-control"><option value="737">Regular</option></select>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="type" class="control-label col-sm-3">Service</label>
-                            <div class="controls col-sm-8">
-                              <select data-bind="options: services, optionsText: 'name', optionsCaption: 'All services', optionsValue: 'id', value: service_id" class="form-control"><option value="">All services</option><option value="3272">Hourly Charter</option></select>
-                            </div>
-                          </div>
-
-
-                          <div class="form-group">
-                            <label for="max_volume" class="control-label col-sm-3">Up to (hours)</label>
-                            <div class="controls col-sm-8">
-                              <input type="text" value="" name="hourly_estimate_setting[max_hours]" id="hourly_estimate_setting_max_hours" data-bind="value: max_hours" class="form-control">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="max_weight" class="control-label col-sm-3">Hourly Rate</label>
-                            <div class="controls col-sm-8">
-                              <input type="text" value="" name="hourly_estimate_setting[cost_per_hour]" id="hourly_estimate_setting_cost_per_hour" data-bind="value: cost_per_hour" class="form-control">
-                            </div>
-                          </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                          <button class="btn btn-primary" data-bind="click: function() { hesViewModel.updateAction($data) }">Update Hourly Estimate Setting</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
                 </div>
               </div>
 
+            </div>
+            <div id="edit_hourly_estimate_modal" class="modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close">×</button>
+                    <h3>Hourly Estimate Settings</h3>
+                  </div>
+                  <div id="hourly_estimation_settings_div"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -311,7 +272,27 @@
       }
     });
   }
-  
-  
+
+  function add_hourly_estimation_settings()
+  {
+    $('#add_hourly_estimate_modal').modal('hide');
+    var rate_group = "Regular";
+    var up_to_hours = $('#up_to_hours').val();
+    var service = "all";
+    var hourly_rate = $('#hourly_rate').val();
+    $.ajax({
+      url: '/vehicle_types/add_hourly_estimation_settings',
+      type: "POST",
+      data: {
+        id: id,
+        rate_group: rate_group,
+        up_to_hours: up_to_hours,
+        service: service,
+        hourly_rate: hourly_rate
+      }
+    });
+  }
+
+
 
 </script>
