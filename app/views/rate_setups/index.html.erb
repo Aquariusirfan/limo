@@ -22,13 +22,9 @@
           and a rate per mile for each extra distance unit(miles)
         </div>
 
-        <a class="btn" href="/vehicle_types/1957">Sedan</a>
-
-        <a class="btn" href="/vehicle_types/1958">SUV</a>
-
-        <a class="btn" href="/vehicle_types/2010">10 PAX VAN</a>
-
-        <a class="btn" href="/vehicle_types/1959">Stretch Limo</a>
+        <%current_user.company.vehicle_types.each do |v|%>
+          <%= link_to "#{v.name}", vehicle_type_path(v), class: "btn" %>
+        <%end%>
 
       </div>
 
@@ -42,7 +38,7 @@
 
         </div>
 
-        <a class="btn" href="/rates/flat_rates">Setup Zone-to-Zone based rates</a>
+        <a class="btn" href="##">Setup Zone-to-Zone based rates</a>
       </div>
     </div>
   </div>
