@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :distance_estimation_settings , only: [:edit,:update,:destroy] 
   resources :services
   resources :places
+  resources :affiliates
     
 
 end

@@ -1,0 +1,52 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Affiliates</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-edit"></i> Show Affiliate</li>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table m-t-lg">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <td><%= @affiliate.company %></td>
+          </tr>
+
+          <tr>
+            <th>First Name</th>
+            <td><%= @affiliate.first_name %></td>
+          </tr>
+
+          <tr>
+            <th>Last Name</th>
+            <td><%= @affiliate.last_name %></td>
+          </tr>
+
+          <tr>
+            <th>Phone</th>
+            <td><%= @affiliate.phone %></td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td><%= @affiliate.email %></td>
+          </tr>
+        </thead>
+      </table>
+
+      <%= link_to 'Edit', edit_affiliate_path(@affiliate),:class => "btn btn-minier btn-primary"  %> |
+      <%= link_to 'Back', affiliates_path,:class => "btn btn-minier btn-primary"  %>
+    </div>
+  </div><!-- /.row -->
+
+</div><!--
+
+
+
