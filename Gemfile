@@ -46,3 +46,5 @@ gem 'carrierwave'
 gem "rolify"
 
 gem "paperclip", "~> 4.2"
+
+gem 'aws-sdk'
