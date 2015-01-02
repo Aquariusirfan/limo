@@ -38,7 +38,7 @@
                           <td><%= setting.miles_per_distance %></td>
                           <td>
                             <a href="/distance_estimation_settings/<%= setting.id %>/edit" class="btn btn-xs btn-primary" data-remote="true"><i class="icon-edit"></i> Edit</a>
-                            <a class="btn btn-xs btn-danger"><i class="icon-trash"></i> Delete</a>
+                            <a href="/distance_estimation_settings/<%= setting.id %>" class="btn btn-xs btn-danger" data-remote="true" data-method="DELETE" data-confirm="Are you sure"><i class="icon-trash"></i> Delete</a>
                           </td>
                         </tr>
                       <%end%>

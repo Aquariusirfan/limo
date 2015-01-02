@@ -10,6 +10,11 @@ class DistanceEstimationSettingsController < ApplicationController
     @vehicle_type = @setting.vehicle_type
   end
   
+  def destroy
+    @vehicle_type = @setting.vehicle_type
+    @setting.destroy
+  end
+  
   private
   def set_distance_estimation_setting
     @setting = DistanceEstimationSetting.find(params[:id])
