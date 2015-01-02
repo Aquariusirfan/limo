@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   
   resources :vehicle_types
   resources :reservation_settings 
+  resources :services
+  resources :places
     
 
 end
