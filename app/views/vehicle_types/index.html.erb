@@ -30,7 +30,7 @@
                   <td><%= vehicle.code %></td>
                   <td><%= vehicle.name %></td>
                   <td><%= vehicle.capacity %></td>
-                  <td><%= image_tag(vehicle.image.url) %></td>
+                  <td><%= (image_tag vehicle.image.url, :style => "width: 200px; height: 120px;") %></td>
                   <td><%= link_to 'Edit', edit_vehicle_type_path(vehicle),:class => "btn btn-minier btn-primary" %>
                     <%= link_to 'Destroy', vehicle_type_path(vehicle), :class => "btn medium btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
