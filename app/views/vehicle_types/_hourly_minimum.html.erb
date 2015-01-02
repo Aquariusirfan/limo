@@ -1,0 +1,16 @@
+<strong>Hourly minimum:</strong> <span class="best_in_place"><input type="text" class="form-control" id="hourly_minimum_input"/></span> hour(s)
+<button type="button" onclick="update_hourly_minimum();">Update</button>
+<script>
+  function update_hourly_minimum()
+  {
+    var hourly_minimum = $('#hourly_minimum_input').val();
+    $.ajax({
+      url: '/vehicle_types/update_hourly_minimum',
+      type: "POST",
+      data: {
+        id: id,
+        hourly_minimum: hourly_minimum
+      }
+    });
+  }
+</script>
