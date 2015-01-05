@@ -31,7 +31,7 @@
                 <tr>
                   <td class="ng-binding"><%= zip.zcode %></td>
                   <td>
-                    <a class="btn btn-xs btn-default" href="##">Remove</a>
+                    <%= link_to "Remove" , zip_code_path(zip),:class=>"btn btn-xs btn-default" ,:method=>"DELETE",:remote=>true %>
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
                       <ul class="dropdown-menu">
@@ -44,7 +44,7 @@
               <%end%>
             </tbody>
           </table>
-          <a class="btn btn-danger" href="##">Delete this zone</a>
+          <%= link_to "Delete this zone" , company_zone_path(@company_zone),:class=>"btn btn-danger" ,:method=>"DELETE",:remote=>true %>
         </div>
 
       </div>
