@@ -8,8 +8,15 @@ class ZoneRatesController < ApplicationController
   end
   
   def create
+    #k == vehicle_type-id and v == zone_rate_value
     params[:hash].each do |k,v|
-      ZoneRate.create(:vehicle_type_id=>k,:zone_rate=>v,:destination_id=>params[:destination_id],:source_id=>params[:source_id])
+      zone_rate = ZoneRate.where(:vehicle_type=>k,:destination_id=>params[:destination_id],:source_id=>params[:source_id])
+      if zone_rate.size > 0
+        zone_rate.first.update_attribute(:zone_rate,v)
+      else
+        ZoneRate.create(:vehicle_type_id=>k,:zone_rate=>v,:destination_id=>params[:destination_id],:source_id=>params[:source_id])
+      end
+      
     end
   end
   

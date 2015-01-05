@@ -69,3 +69,55 @@
 
 
 </div>
+<script type="text/javascript">
+  set_vehicles_rate();
+  function set_vehicles_zone_rate() {
+    var ids = [];
+    var values = [];
+    var hash = {};
+    $('.vehicle').each(function () {
+      ids.push($(this).attr('id'));
+      values.push($(this).val());
+    });
+    for (var i = 0; i < ids.length; i++) {
+      hash[ids[i]] = values[i];
+    }
+    var source_id = $('.source_id').val();
+    var destination_id = $('.destination_id').val();
+    $.ajax({
+      url: '/zone_rates',
+      type: "POST",
+      data: {
+        hash: hash,
+        source_id: source_id,
+        destination_id: destination_id
+      }
+    });
+  }
+
+  function set_vehicles_rate() {
+    var source_id = $('.source_id').val();
+    var destination_id = $('.destination_id').val();
+    $.ajax({
+      url: '/zone_rates/find_zone_rate',
+      type: "GET",
+      data: {
+        source_id: source_id,
+        destination_id: destination_id
+      }
+    }).done(function (response) {
+      if (response["status"] === "success") {
+        for (var i = 0; i < response["zone_rates"].length; i++)
+        {
+          $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').val(response["zone_rates"][i]["zone_rate"]);
+        }
+      }
+      else
+      {
+        $('.vehicle').each(function () {
+          $(this).val('');
+        });
+      }
+    });
+  }
+</script>
