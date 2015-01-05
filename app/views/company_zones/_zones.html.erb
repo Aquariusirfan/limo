@@ -16,7 +16,7 @@
       <br>
       <div class="list-group m-t-md">
         <%current_user.company.company_zones.each_with_index do |zone,index|%>
-          <a class="list-group-item ng-scope <%= index == 0 ? 'active' : ''%> " href="<%= company_zone_path(zone) %>" data-remote="true">
+          <a class="list-group-item ng-scope" href="<%= company_zone_path(zone) %>" data-remote="true" id="active_class<%= zone.id %>">
             <span class="zone-name-section ng-binding">
               <%= zone.name %>
             </span>

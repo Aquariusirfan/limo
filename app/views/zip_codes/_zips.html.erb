@@ -46,8 +46,13 @@
           </table>
           <%= link_to "Delete this zone" , company_zone_path(@company_zone),:class=>"btn btn-danger" ,:method=>"DELETE",:remote=>true %>
         </div>
-
       </div>
     </div>
-
   </div>
+<script type="text/javascript">
+  var zone_id = <%= @company_zone.id %>
+  $('.list-group-item').each(function(){
+    $(this).removeClass("active");
+  });
+  $('#active_class'+zone_id).addClass("active");
+</script>
