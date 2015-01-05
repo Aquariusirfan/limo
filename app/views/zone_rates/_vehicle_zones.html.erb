@@ -51,7 +51,7 @@
                 </td>
 
                 <td>
-                  <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid">
+                  <input type="checkbox" id="">
                   <small style="display: none;">Rate not set</small>
                 </td>
               </tr>
@@ -110,6 +110,13 @@
         for (var i = 0; i < response["zone_rates"].length; i++)
         {
           $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').val(response["zone_rates"][i]["zone_rate"]);
+          /*if (response["zone_rates"][i]["is_active"]===false){
+            $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly",true);
+          }
+          else
+          {
+           $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly",false); 
+          }*/
         }
       }
       else
