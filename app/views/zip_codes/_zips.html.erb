@@ -35,8 +35,9 @@
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><a href="##">Downtown Seattle</a></li>
-                        <li><a href="##">Seattle Tacoma International Airport</a></li>
+                        <%current_user.company.company_zones.reject { |z| z.id == @company_zone.id }.each do |zone|%>
+                          <li><a href="/zip_codes/re_assign_company_zone?id=<%= zip.id %>&&company_zone_id=<%= zone.id %>" data-remote="true"><%= zone.name %></a></li>
+                        <%end%>
                       </ul>
                     </div>
                   </td>

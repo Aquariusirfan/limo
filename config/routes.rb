@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   resources :affiliates
   resources :zone_rates
   resources :company_zones
-  resources :zip_codes
+  resources :zip_codes do
+    collection do
+      get :re_assign_company_zone
+    end
+  end
     
 
 end
