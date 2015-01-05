@@ -14,4 +14,12 @@
 //= require jquery_ujs
 //= require countries
 //= require bootstrap
+//= require jquery.timepicker
+//= require bootstrap-datepicker
+//= require date_time
 
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+        format: 'yyyy/mm/dd'
+    });
+});

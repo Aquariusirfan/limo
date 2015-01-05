@@ -1,0 +1,166 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Reservations</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <% if @reservation.new_record? %>
+          <li class="active"><i class="fa fa-edit"></i> New Reservation</li>
+        <%else%>
+          <li class="active"><i class="fa fa-edit"></i> Edit Reservation</li>
+        <%end%>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <%= form_for([@reservation],:html => {:class=>"form-horizontal"}) do |f| %>
+        <%= f.hidden_field :company_id, :value=> current_user.company.id %>
+        <% if @reservation.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+            <ul>
+              <% @reservation.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <p class="text-muted">Customer Information</p>
+        <hr/>
+        <div class="form-group">
+          <label>Customer Name</label>
+          <%= f.text_field :customer_first_name, :class=> "form-control", :placeholder=>"First Name" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.text_field :customer_last_name, :class=> "form-control", :placeholder=>"Last Name" %>
+        </div>
+
+        <div class="form-group">
+          <label>Customer Email</label>
+          <%= f.text_field :customer_email, :class=> "form-control", :placeholder=>"Email" %>
+        </div>
+
+        <div class="form-group">
+          <label>Customer Phone</label>
+          <%= f.text_field :customer_phone, :class=> "form-control", :placeholder=>"Phone" %>
+        </div>
+
+        <h2>Passengers</h2>
+        <div class="form-group">
+          <label>Corporate Account</label>
+          <%= f.select :corporate_account, options_for_select([['Leanne & Patrick Nichol' ,'Leanne & Patrick Nichol'], ['Pat Coulter', 'Pat Coulter'], ['Chris Gordon', 'Chris Gordon']]),{}, :class=>"form-control" %>
+        </div>
+
+        <div>
+          <%= radio_button_tag 'customer', "", true ,:onclick=>"$('#passenger').hide();",:id=>"customer_is_passenger"%>
+          Customer is the passenger
+          <%= radio_button_tag 'customer', "", false ,:onclick=>"$('#passenger').show();",:id=>"customer_is_not_passenger"%>
+          Customer is not the passenger
+        </div>
+        <br/>
+
+        <div style="display: none;" id="passenger">
+          <div class="form-group">
+            <label>Passenger Name</label>
+            <%= f.text_field :passenger_first_name, :class=> "form-control", :placeholder=>"First Name" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :passenger_last_name, :class=> "form-control", :placeholder=>"Last Name" %>
+          </div>
+
+          <div class="form-group">
+            <label>Passenger Email</label>
+            <%= f.text_field :passenger_email, :class=> "form-control", :placeholder=>"Email" %>
+          </div>
+
+          <div class="form-group">
+            <label>Passenger Phone</label>
+            <%= f.text_field :passenger_phone, :class=> "form-control", :placeholder=>"Phone" %>
+          </div>
+        </div>
+
+        <p class="text-muted">Trip Information</p>
+        <hr/>
+
+        <div class="form-group">
+          <label>Service type</label>
+          <%= f.select :service_id, options_for_select(current_user.company.services.all.collect { |c| [c.name,c.id]  },f.object.service_id),{}, :class=>"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Vehicle type</label>
+          <%= f.select :vehicle_type_id, options_for_select(current_user.company.vehicle_types.all.collect { |c| [c.name,c.id] },f.object.vehicle_type_id), {}, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <label>Passengers</label>
+            <%= f.select :passenger, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 9], ["10", 10], ["11", 11], ["12", 12]],{}, :class=>"form-control" %>
+          </div>
+
+          <div class="form-group">
+            <label>Pickup Time</label>
+            <%= f.text_field :pick_up_date, :placeholder=>"Date", autocomplete: "off",:class=>"form-control datepicker" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :pick_up_time, :placeholder=>"Time", autocomplete: "off",:class=>"form-control pickuptime" %>
+          </div>
+
+          <div class="form-group">
+            <label>Pickup At</label>
+            <%= f.text_field :pick_up_location, :class=> "form-control", :placeholder=>"Location", :id=>'autocomplete' %>
+          </div>
+
+          <div class="form-group">
+            <label>Dropoff At</label>
+            <%= f.select :drop_off_location, [['Seattle-Tacoma International', 'Seattle-Tacoma International']],{}, :class=>"form-control" %>
+          </div>
+          <hr/>
+
+          <div class="form-group">
+            <label>Flight Info</label>
+            <%= f.text_field :airline, :class=> "form-control", :placeholder=>"Airline" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :flight_number, :class=> "form-control", :placeholder=>"Flight Number" %>
+          </div>
+
+          <div class="form-group">
+            <label>Special Notes</label>
+            <%= f.text_area :additional_info, :class=> "form-control", :rows=>"3", :placeholder=> "Additional Info" %>
+          </div>
+
+          <div class="form-group">
+            <label>Order Source</label>
+            <%= f.select :order_source, options_for_select([['Website' ,'Website'], ['Lead Provider', 'Lead Provider'], ['Farm In', 'Farm In'], ['Phone', 'Phone'], ['Social Media', 'Social Media'], ['Other', 'Other']]),{}, :class=>"form-control" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit :class=> "btn btn-primary"%>
+            <%= link_to 'Back', reservations_path ,:class => "btn btn-minier btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-lg-6">
+        <div id="map-canvas"></div>
+
+      </div>
+    </div><!-- /.row -->
+  </div>
+
+  <script type="text/javascript">
+    function initialize() {
+      var location = document.getElementById('autocomplete');
+      var address = document.getElementById('address_autocomplete');
+      var autocomplete = new google.maps.places.Autocomplete(location);
+      var autocomplete1 = new google.maps.places.Autocomplete(address);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>

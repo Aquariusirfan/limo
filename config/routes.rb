@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       get :re_assign_company_zone
     end
   end
+  resources :reservations
     
 
 end
