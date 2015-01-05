@@ -1,4 +1,6 @@
 class ZipCode < ActiveRecord::Base
   belongs_to :company
-  belongs_to :company_zone
+  has_many :zip_zones
+  has_many :company_zones, through: :zip_zones
+  accepts_nested_attributes_for :zip_zones
 end

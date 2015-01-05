@@ -13,8 +13,8 @@
         <%= form_for :zip_code , url: zip_codes_path, :html=>{class: "m-t-sm"}, remote: true do |f| %>
             <div class="input-group">
               <%= f.text_field :zcode,:class=>"form-control",:placeholder=>"Enter zipcode"   %>
-              <input type="hidden"  value="<%= current_user.company.id%>" name="zip_code[company_id]">
-              <input type="hidden"  value="<%= @company_zone.id%>" name="zip_code[company_zone_id]">
+              <input type="hidden"  value="<%= current_user.company.id%>" name="company_id">
+              <input type="hidden"  value="<%= @company_zone.id%>" name="company_zone_id">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">
                   Add to zone
@@ -31,7 +31,7 @@
                 <tr>
                   <td class="ng-binding"><%= zip.zcode %></td>
                   <td>
-                    <%= link_to "Remove" , zip_code_path(zip),:class=>"btn btn-xs btn-default" ,:method=>"DELETE",:remote=>true %>
+                    <a class="btn btn-xs btn-default" rel="nofollow" href="/zip_codes/<%= zip.id %>?company_zone_id=<%= @company_zone.id %>" data-remote="true" data-method="DELETE">Remove</a>
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
                       <ul class="dropdown-menu">
@@ -49,10 +49,10 @@
       </div>
     </div>
   </div>
-<script type="text/javascript">
-  var zone_id = <%= @company_zone.id %>
-  $('.list-group-item').each(function(){
-    $(this).removeClass("active");
-  });
-  $('#active_class'+zone_id).addClass("active");
-</script>
+  <script type="text/javascript">
+    var zone_id = <%= @company_zone.id %>
+    $('.list-group-item').each(function () {
+      $(this).removeClass("active");
+    });
+    $('#active_class' + zone_id).addClass("active");
+  </script>
