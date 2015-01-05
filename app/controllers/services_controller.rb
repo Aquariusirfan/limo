@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_service , only: [:edit,:update,:destroy]
 
   def index
     @services = current_user.company.services
@@ -20,11 +21,10 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    @service = Service.find(params[:id])
+    
   end
 
   def update
-    @service = Service.find(params[:id])
     if @service.update_attributes(service_params)
       flash[:notice] = "Service was successfully updated."
       redirect_to services_path
@@ -34,7 +34,6 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    @service = Service.find(params[:id])
     @service.destroy
     respond_to do |format|
       format.html { redirect_to services_url, notice: 'Services was successfully destroyed.' }
@@ -46,6 +45,10 @@ class ServicesController < ApplicationController
 
   def service_params
     params[:service].permit!
+  end
+
+  def set_service
+    @service = Service.find(params[:id])
   end
   
 end

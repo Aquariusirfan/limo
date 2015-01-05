@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :services
   resources :places
   resources :affiliates
+  resources :reservations
     
 
 end
