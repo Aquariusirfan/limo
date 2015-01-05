@@ -1,0 +1,71 @@
+<div class="col-md-5">
+  <h5 class="section-setup m-b-sm">
+    <span class=""><strong>3. </strong></span>
+    <span>Setup rates between zones</span>
+  </h5>
+  <div class="focus-box">
+
+    <div>
+      <div class="m-b-md">Set up zone to zone rates for
+        <div class="btn-group">
+          <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle ng-binding">Regular rate group <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="##">Regular rate group</a></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <select class="form-control d-ib w-md source_id">
+          <%current_user.company.company_zones.each do |zone|%>
+            <option value="<%= zone.id %>"><%= zone.name %></option>
+          <%end%>
+        </select>
+        <span class="m-l-sm"> to</span>
+        <select  class="form-control d-ib w-md destination_id">
+          <%current_user.company.company_zones.each do |zone|%>
+            <option value="<%= zone.id %>"><%= zone.name %></option>
+          <%end%>
+        </select>
+
+      </div>
+      <div>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Vehicle type</th>
+              <th>Base flat rate</th>
+              <th>Is Active?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% current_user.company.vehicle_types.each do |v| %>
+              <tr>
+                <td>
+                  <%= v.name %>
+                </td>
+                <td>
+                  <div class="input-group w-sm">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control vehicle" id="<%= v.id %>">
+                  </div>
+                </td>
+
+                <td>
+                  <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid">
+                  <small style="display: none;">Rate not set</small>
+                </td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" type="button" onclick="set_vehicles_zone_rate();">Save rates</button>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
