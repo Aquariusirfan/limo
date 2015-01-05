@@ -1,0 +1,33 @@
+<div class="col-md-3">
+  <div class="">
+    <h5 class="section-setup m-b-sm">
+      <span class=""><strong>1. </strong></span>
+      <span>Setup zones</span>
+    </h5>
+    <%= form_for :company_zone , url: company_zones_path, remote: true do |f| %>
+        <div class="input-group">
+          <%= f.text_field :name,:class=>"form-control",:placeholder=>"Enter new zone"   %>
+          <input type="hidden"  value="<%= current_user.company.id%>" name="company_zone[company_id]">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">Add Zone</button>
+          </span>
+        </div>
+      <%end%>
+      <br>
+      <div class="list-group m-t-md">
+        <%current_user.company.company_zones.each_with_index do |zone,index|%>
+          <a class="list-group-item ng-scope <%= index == 0 ? 'active' : ''%> " href="<%= company_zone_path(zone) %>" data-remote="true">
+            <span class="zone-name-section ng-binding">
+              <%= zone.name %>
+            </span>
+            <span style="" class="pull-right badge ng-binding"><%= zone.zip_codes.size > 0 ? zone.zip_codes.size : 0%></span>
+          </a>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <%if current_user.company.company_zones.size > 0%>
+    <div id="zip_codes">
+      <%= render :partial => "zip_codes/zips" %>
+    </div>
+  <%end%>

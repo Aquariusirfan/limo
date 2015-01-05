@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   resources :services
   resources :places
   resources :affiliates
+  resources :zone_rates
+  resources :company_zones
+  resources :zip_codes
     
 
 end

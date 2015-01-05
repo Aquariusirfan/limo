@@ -1,0 +1,323 @@
+<div id="pad-wrapper">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Zone to zone rate setup</h4>
+    </div>
+    <div class="col-md-6">
+      <div class="pull-right">
+        <a class="btn" href="/rates/rate_setup">Back to Rate Setup</a>
+
+        <a target="_blank" class="btn btn-default" href="https://myseattleride.ridebitsapp.com/central/new_reservation">
+          Test Rates
+        </a>      </div>
+
+      <script src="https://myseattleride.ridebitsapp.com/widgets/widget_loader.js" type="text/javascript"></script>
+
+
+
+    </div>
+  </div>
+  <div ng-controller="RateSetupCtrl" id="flat-rate-app" class="flat-rate-section console-app row small m-t-md ng-scope">
+    <div class="col-md-3">
+      <div class="">
+        <h5 class="section-setup m-b-sm">
+          <span class=""><strong>1. </strong></span>
+          <span>Setup zones</span>
+        </h5>
+
+
+        <form ng-submit="addZone()" class="ng-pristine ng-invalid ng-invalid-required">
+          <div class="input-group">
+
+            <input type="text" required="" id="appendedInputButton" placeholder="Enter new zone" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="new_zone">
+            <span class="input-group-btn">
+              <button ng-show="zone_adding" disabled="" class="btn btn-default ng-hide">Adding...</button>
+              <button ng-show="!zone_adding" type="submit" class="btn btn-default">Add Zone</button>
+
+            </span>
+
+          </div>
+
+
+
+        </form>
+
+        <div class="list-group m-t-md">
+          <!-- ngRepeat: zone in zone_list --><a ng-click="switchActiveZone(zone)" ng-repeat="zone in zone_list" ng-class="{active: zone.id == active_zone.id}" class="list-group-item ng-scope active">
+
+
+            <span class="zone-name-section ng-binding">
+              Downtown Seattle
+            </span>
+
+
+            <span style="" class="pull-right badge ng-binding">2</span>
+          </a><!-- end ngRepeat: zone in zone_list --><a ng-click="switchActiveZone(zone)" ng-repeat="zone in zone_list" ng-class="{active: zone.id == active_zone.id}" class="list-group-item ng-scope">
+
+
+            <span class="zone-name-section ng-binding">
+              Seattle Tacoma International Airport
+            </span>
+
+
+            <span style="" class="pull-right badge ng-binding">1</span>
+          </a><!-- end ngRepeat: zone in zone_list -->
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="well well-sm">
+        <h5 class="section-setup m-b-sm">
+          <span class=""><strong>2. </strong></span>
+          <span>Assign zip/postal codes to zones</span>
+        </h5>
+
+        <div class="focus-box">
+          <div ng-show="!active_zone" class="alert alert-info ng-hide">
+            Add zones in box 1 before assigning zip codes
+          </div>
+          <div ng-show="zone_list" class="zip-section">
+
+            <form class="m-t-sm ng-pristine ng-invalid ng-invalid-required" ng-submit="addZipToZone()">
+              <div class="input-group">
+                <input type="text" required="" id="appendedInputButton" placeholder="Enter zipcode" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="new_zip">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">
+                    Add to zone</button>
+                </span>
+
+              </div>
+
+            </form>
+
+            <p class="text-bold text-muted m-t-sm ng-binding">Postal/zip codes for Downtown Seattle</p>
+
+            <table class="table table-condensed m-t-sm">
+              <tbody>
+                <!-- ngRepeat: location in zone_locations | startFrom: currentPage * pageSize  | limitTo:pageSize --><tr ng-repeat="location in zone_locations | startFrom: currentPage * pageSize  | limitTo:pageSize" class="ng-scope">
+                  <td class="ng-binding">98104</td>
+                  <td>
+                    <a ng-click="removeZipFromZone(location)" class="btn btn-xs btn-default" href="#">Remove</a>
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <!-- ngRepeat: zone in zone_list --><li ng-hide="zone.id == active_zone.id" ng-repeat="zone in zone_list" class="ng-scope ng-hide"><a ng-click="reassignZipToZone(location,zone)" href="#" class="ng-binding">Downtown Seattle</a></li><!-- end ngRepeat: zone in zone_list --><li ng-hide="zone.id == active_zone.id" ng-repeat="zone in zone_list" class="ng-scope"><a ng-click="reassignZipToZone(location,zone)" href="#" class="ng-binding">Seattle Tacoma International Airport</a></li><!-- end ngRepeat: zone in zone_list -->
+                      </ul>
+                    </div>
+                  </td>
+                </tr><!-- end ngRepeat: location in zone_locations | startFrom: currentPage * pageSize  | limitTo:pageSize --><tr ng-repeat="location in zone_locations | startFrom: currentPage * pageSize  | limitTo:pageSize" class="ng-scope">
+                  <td class="ng-binding">98101</td>
+                  <td>
+                    <a ng-click="removeZipFromZone(location)" class="btn btn-xs btn-default" href="#">Remove</a>
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <!-- ngRepeat: zone in zone_list --><li ng-hide="zone.id == active_zone.id" ng-repeat="zone in zone_list" class="ng-scope ng-hide"><a ng-click="reassignZipToZone(location,zone)" href="#" class="ng-binding">Downtown Seattle</a></li><!-- end ngRepeat: zone in zone_list --><li ng-hide="zone.id == active_zone.id" ng-repeat="zone in zone_list" class="ng-scope"><a ng-click="reassignZipToZone(location,zone)" href="#" class="ng-binding">Seattle Tacoma International Airport</a></li><!-- end ngRepeat: zone in zone_list -->
+                      </ul>
+                    </div>
+                  </td>
+                </tr><!-- end ngRepeat: location in zone_locations | startFrom: currentPage * pageSize  | limitTo:pageSize -->
+              </tbody>
+            </table>
+
+            <div ng-show="zone_locations.length &gt; pageSize" class="pagination ng-hide">
+              <ul>
+                <!-- ngRepeat: i in getNumberAsArray(numberOfPages()) track by $index --><li ng-class="{active: $index == currentPage}" ng-click="setCurrentPage($index)" ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" class="ng-scope active">
+                  <a href="#" class="ng-binding">1
+
+                  </a>
+                </li><!-- end ngRepeat: i in getNumberAsArray(numberOfPages()) track by $index -->
+              </ul>
+            </div>
+
+
+
+
+
+
+
+            <a ng-click="deleteZone()" ng-show="!zone_deleting &amp;&amp; active_zone" class="btn btn-danger" href="#">Delete this zone</a>
+            <button class="btn btn-danger ng-hide" disabled="" ng-show="zone_deleting">Deleting...</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-5">
+
+
+      <h5 class="section-setup m-b-sm">
+        <span class=""><strong>3. </strong></span>
+        <span>Setup rates between zones</span>
+      </h5>
+
+      <div class="focus-box">
+
+
+        <div ng-show="!active_zone" class="alert alert-info ng-hide">
+          Add zones in box 1 before setting flat rates
+        </div>
+
+        <div ng-show="active_zone" class="rate-setup-box">
+          <div class="m-b-md">Set up zone to zone rates for
+            <div class="btn-group">
+              <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle ng-binding">Regular rate group <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <!-- ngRepeat: rate_group in rate_groups --><li ng-repeat="rate_group in rate_groups" class="ng-scope"><a ng-click="changeRateGroup(rate_group)" href="#" class="ng-binding">Regular rate group</a></li><!-- end ngRepeat: rate_group in rate_groups -->
+              </ul>
+            </div>
+
+          </div>
+
+
+
+          <div class="">
+
+            <select ng-options="c.id as c.name for c in zone_list" ng-change="changeZoneMap()" class="form-control d-ib w-md ng-pristine ng-valid" ng-model="from_zone_id"><option value="0" selected="selected">Downtown Seattle</option><option value="1">Seattle Tacoma International Airport</option></select>
+
+
+            <span class="m-l-sm"> to</span>
+
+
+            <select ng-options="c.id as c.name for c in zone_list" ng-change="changeZoneMap()" class="form-control d-ib w-md ng-pristine ng-valid" ng-model="to_zone_id"><option value="0" selected="selected">Downtown Seattle</option><option value="1" selected="selected">Seattle Tacoma International Airport</option></select>
+
+            <button ng-click="toggleToFromZones()" class="btn btn-default m-l-xs">
+              <i class="fa fa-exchange"></i>
+            </button>
+
+          </div>
+
+
+
+
+
+
+
+          <form class="m-t-md ng-pristine ng-valid" ng-show="vehicle_types" ng-submit="saveRates()">
+            <div>
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Vehicle type</th>
+                    <th>Base flat rate</th>
+                    <th>Is Active?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- ngRepeat: vehicle_type in vehicle_types --><tr ng-repeat="vehicle_type in vehicle_types" class="ng-scope">
+                    <td class="ng-binding">
+                      Sedan
+                    </td>
+                    <td>
+                      <div class="input-group w-sm">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" required="" ng-disabled="!vehicle_type.is_active &amp;&amp; vehicle_type.has_rate" ng-model="vehicle_type.rate" class="form-control ng-pristine ng-valid ng-valid-required">
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="hidden" ng-model="vehicle_type.rate_id" class="ng-pristine ng-valid">
+                      <input type="hidden" ng-model="vehicle_type.id" class="ng-pristine ng-valid">
+                      <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid">
+                      <small ng-show="!vehicle_type.has_rate" class="ng-hide">Rate not set</small>
+                    </td>
+                  </tr><!-- end ngRepeat: vehicle_type in vehicle_types --><tr ng-repeat="vehicle_type in vehicle_types" class="ng-scope">
+                    <td class="ng-binding">
+                      SUV
+                    </td>
+                    <td>
+                      <div class="input-group w-sm">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" required="" ng-disabled="!vehicle_type.is_active &amp;&amp; vehicle_type.has_rate" ng-model="vehicle_type.rate" class="form-control ng-pristine ng-valid ng-valid-required">
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="hidden" ng-model="vehicle_type.rate_id" class="ng-pristine ng-valid">
+                      <input type="hidden" ng-model="vehicle_type.id" class="ng-pristine ng-valid">
+                      <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid">
+                      <small ng-show="!vehicle_type.has_rate" class="ng-hide">Rate not set</small>
+                    </td>
+                  </tr><!-- end ngRepeat: vehicle_type in vehicle_types --><tr ng-repeat="vehicle_type in vehicle_types" class="ng-scope">
+                    <td class="ng-binding">
+                      10 PAX VAN
+                    </td>
+                    <td>
+                      <div class="input-group w-sm">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" required="" ng-disabled="!vehicle_type.is_active &amp;&amp; vehicle_type.has_rate" ng-model="vehicle_type.rate" class="form-control ng-pristine ng-valid ng-valid-required">
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="hidden" ng-model="vehicle_type.rate_id" class="ng-pristine ng-valid">
+                      <input type="hidden" ng-model="vehicle_type.id" class="ng-pristine ng-valid">
+                      <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid ng-hide">
+                      <small ng-show="!vehicle_type.has_rate" class="">Rate not set</small>
+                    </td>
+                  </tr><!-- end ngRepeat: vehicle_type in vehicle_types --><tr ng-repeat="vehicle_type in vehicle_types" class="ng-scope">
+                    <td class="ng-binding">
+                      Stretch Limo
+                    </td>
+                    <td>
+                      <div class="input-group w-sm">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" required="" ng-disabled="!vehicle_type.is_active &amp;&amp; vehicle_type.has_rate" ng-model="vehicle_type.rate" class="form-control ng-pristine ng-valid ng-valid-required">
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="hidden" ng-model="vehicle_type.rate_id" class="ng-pristine ng-valid">
+                      <input type="hidden" ng-model="vehicle_type.id" class="ng-pristine ng-valid">
+                      <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid">
+                      <small ng-show="!vehicle_type.has_rate" class="ng-hide">Rate not set</small>
+                    </td>
+                  </tr><!-- end ngRepeat: vehicle_type in vehicle_types --><tr ng-repeat="vehicle_type in vehicle_types" class="ng-scope">
+                    <td class="ng-binding">
+                      Sedan
+                    </td>
+                    <td>
+                      <div class="input-group w-sm">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" required="" ng-disabled="!vehicle_type.is_active &amp;&amp; vehicle_type.has_rate" ng-model="vehicle_type.rate" class="form-control ng-pristine ng-valid ng-valid-required">
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="hidden" ng-model="vehicle_type.rate_id" class="ng-pristine ng-valid">
+                      <input type="hidden" ng-model="vehicle_type.id" class="ng-pristine ng-valid">
+                      <input type="checkbox" ng-model="vehicle_type.is_active" ng-show="vehicle_type.has_rate" class="ng-pristine ng-valid ng-hide">
+                      <small ng-show="!vehicle_type.has_rate" class="">Rate not set</small>
+                    </td>
+                  </tr><!-- end ngRepeat: vehicle_type in vehicle_types -->
+                </tbody>
+              </table>
+
+              <p>Set Rates on Reverse Routes? <input type="checkbox" ng-model="reverse_rates" class="ng-pristine ng-valid"> </p>
+
+              <button ng-show="!rate_saving" class="btn btn-primary" type="submit">Save rates
+              </button>
+              <button disabled="" ng-show="rate_saving" class="btn ng-hide">Updating rates</button>
+            </div>
+          </form>
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

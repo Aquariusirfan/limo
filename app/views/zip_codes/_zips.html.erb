@@ -1,0 +1,53 @@
+<div class="col-md-4">
+  <div class="well well-sm">
+    <h5 class="section-setup m-b-sm">
+      <span class=""><strong>2. </strong></span>
+      <span>Assign zip/postal codes to zones</span>
+    </h5>
+
+    <div class="focus-box">
+      <div class="alert alert-info ng-hide" style="display: none;">
+        Add zones in box 1 before assigning zip codes
+      </div>
+      <div class="zip-section">
+        <%= form_for :zip_code , url: zip_codes_path, :html=>{class: "m-t-sm"}, remote: true do |f| %>
+            <div class="input-group">
+              <%= f.text_field :zcode,:class=>"form-control",:placeholder=>"Enter zipcode"   %>
+              <input type="hidden"  value="<%= current_user.company.id%>" name="zip_code[company_id]">
+              <input type="hidden"  value="<%= @company_zone.id%>" name="zip_code[company_zone_id]">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                  Add to zone
+                </button>
+              </span>
+            </div>
+          <%end%>
+
+          <p class="text-bold text-muted m-t-sm ng-binding">Postal/zip codes for <%= @company_zone.name %></p>
+
+          <table class="table table-condensed m-t-sm">
+            <tbody>
+              <%@company_zone.zip_codes.each do |zip|%>
+                <tr>
+                  <td class="ng-binding"><%= zip.zcode %></td>
+                  <td>
+                    <a class="btn btn-xs btn-default" href="##">Remove</a>
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle">Re-assign to <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a href="##">Downtown Seattle</a></li>
+                        <li><a href="##">Seattle Tacoma International Airport</a></li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              <%end%>
+            </tbody>
+          </table>
+          <a class="btn btn-danger" href="##">Delete this zone</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>

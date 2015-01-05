@@ -3,6 +3,7 @@ class VehicleType < ActiveRecord::Base
   #  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   has_many :distance_estimation_settings, dependent: :destroy
   has_many :hourly_estimation_settings, dependent: :destroy
+  has_many :zone_rates, dependent: :destroy
 
   has_attached_file :image,  :storage => 's3',
     :s3_credentials => {:access_key_id => "AKIAIETPPQ55S3QZGFQA" ,:secret_access_key => "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"},

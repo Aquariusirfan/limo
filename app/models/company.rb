@@ -10,6 +10,8 @@ class Company < ActiveRecord::Base
   has_many :vehicle_type
   has_many :services
   has_many :places
+  has_many :company_zones, dependent: :destroy
+  has_many :zip_codes, dependent: :destroy
 
   accepts_nested_attributes_for :reservation_setting
   def add_domain_to_company
