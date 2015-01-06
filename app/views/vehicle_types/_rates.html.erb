@@ -62,7 +62,7 @@
                       <div class="form-group">
                         <label for="type" class="control-label col-sm-3">Rate group</label>
                         <div class="controls col-sm-8">
-                          <select class="form-control"><option>Regular</option></select>
+                          <%= select_tag 'distance_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name}),{class: "form-control"} %>
                         </div>
                       </div>
 
@@ -179,7 +179,7 @@
                           <div class="form-group">
                             <label for="type" class="control-label col-sm-3">Rate group</label>
                             <div class="controls col-sm-8">
-                              <select class="form-control"><option>Regular</option></select>
+                              <%= select_tag 'hourly_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name}),{class: "form-control"} %>
                             </div>
                           </div>
 
@@ -254,7 +254,7 @@
   function add_distance_estimation_settings()
   {
     $('#add_distance_estimate_modal').modal('hide');
-    var rate_group = "Regular";
+    var rate_group = $('#distance_rate_group').val();
     var up_to_mile = $('#up_to_mile').val();
     var base_charge = $('#base_charge').val();
     var cost_per_distance = $('#cost_per_distance').val();
@@ -276,7 +276,7 @@
   function add_hourly_estimation_settings()
   {
     $('#add_hourly_estimate_modal').modal('hide');
-    var rate_group = "Regular";
+    var rate_group = $('#hourly_rate_group').val();
     var up_to_hours = $('#up_to_hours').val();
     var service = "all";
     var hourly_rate = $('#hourly_rate').val();

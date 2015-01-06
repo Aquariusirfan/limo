@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="type" class="control-label col-sm-3">Rate group</label>
       <div class="controls col-sm-8">
-        <select class="form-control"><option>Regular</option></select>
+        <%= select_tag 'edit_distance_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name},@setting.rate_group),{class: "form-control"} %>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
   function update_distance_estimation_settings()
   {
     $('#edit_distance_estimate_modal').modal('hide');
-    var rate_group = "Regular";
+    var rate_group = $('#edit_distance_rate_group').val();
     var up_to_mile = $('#edit_up_to_mile').val();
     var base_charge = $('#edit_base_charge').val();
     var cost_per_distance = $('#edit_cost_per_distance').val();
