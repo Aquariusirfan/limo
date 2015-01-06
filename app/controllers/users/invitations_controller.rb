@@ -1,5 +1,6 @@
 class Users::InvitationsController < DeviseController
-
+  layout "admin"
+  before_action :authenticate_user!
   prepend_before_filter :authenticate_inviter!, :only => [:new, :create]
   prepend_before_filter :has_invitations_left?, :only => [:create]
   prepend_before_filter :require_no_authentication, :only => [:edit, :update, :destroy]
@@ -17,9 +18,13 @@ class Users::InvitationsController < DeviseController
     self.resource = invite_resource
     resource_invited = resource.errors.empty?
 
+    resource.add_role params[:role]
+    #  resource.add_role :driver
+
     yield resource if block_given?
 
     if resource_invited
+    
       if is_flashing_format? && self.resource.invitation_sent_at
         set_flash_message :notice, :send_instructions, :email => self.resource.email
       end
