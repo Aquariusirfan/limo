@@ -16,7 +16,7 @@ class ZipCodesController < ApplicationController
   
   def destroy
     @company_zone = CompanyZone.find(params[:company_zone_id])
-    @zip_code.destroy
+    ZipZone.where(:company_zone_id=>params[:company_zone_id],:zip_code_id=>params[:id]).first.destroy
   end
   
   private
