@@ -6,14 +6,14 @@
   <div class="focus-box">
 
     <div>
-      <!--<div class="m-b-md">Set up zone to zone rates for
-        <div class="btn-group">
-          <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle ng-binding">Regular rate group <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="##">Regular rate group</a></li>
-          </ul>
-        </div>
-      </div>-->
+      <div class="m-b-md">Set up zone to zone rates for
+        <select class="form-control d-ib w-md rate_group_id" onchange="set_vehicles_rate_on_view();">
+          <%current_user.company.rate_groups.each do |rate|%>
+            <option value="<%= rate.id %>"><%= rate.name %></option>
+          <%end%>
+        </select>
+      </div>
+      <br>
       <div>
         <select class="form-control d-ib w-md source_id" onchange="set_vehicles_rate_on_view();">
           <%current_user.company.company_zones.each do |zone|%>
@@ -84,13 +84,15 @@
     }
     var source_id = $('.source_id').val();
     var destination_id = $('.destination_id').val();
+    var rate_group_id = $('.rate_group_id').val();
     $.ajax({
       url: '/zone_rates',
       type: "POST",
       data: {
         hash: hash,
         source_id: source_id,
-        destination_id: destination_id
+        destination_id: destination_id,
+        rate_group_id: rate_group_id
       }
     });
   }
@@ -98,12 +100,14 @@
   function set_vehicles_rate_on_view() {
     var source_id = $('.source_id').val();
     var destination_id = $('.destination_id').val();
+    var rate_group_id = $('.rate_group_id').val();
     $.ajax({
       url: '/zone_rates/find_zone_rate',
       type: "GET",
       data: {
         source_id: source_id,
-        destination_id: destination_id
+        destination_id: destination_id,
+        rate_group_id: rate_group_id
       }
     }).done(function (response) {
       if (response["status"] === "success") {
@@ -157,7 +161,7 @@
           id: id,
           is_active: is_active,
           source_id: source_id,
-          destination_id: destination_id
+          destination_id: destination_id,
         }
       }).done(function () {
         $('#' + id + '.vehicle').attr("readonly", false);
@@ -173,7 +177,8 @@
           id: id,
           is_active: is_active,
           source_id: source_id,
-          destination_id: destination_id
+          destination_id: destination_id,
+          rate_group_id: rate_group_id
         }
       }).done(function () {
         $('#' + id + '.vehicle').attr("readonly", true);

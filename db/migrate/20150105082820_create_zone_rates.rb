@@ -5,6 +5,7 @@ class CreateZoneRates < ActiveRecord::Migration
       t.boolean :is_active , default: false
       t.integer :source_id
       t.integer :destination_id
+      t.integer :rate_group_id
       t.references :vehicle_type
       t.references :company
       t.timestamps

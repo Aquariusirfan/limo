@@ -31,5 +31,6 @@ class Company < ActiveRecord::Base
   #this is temp method
   def create_rate_group
     RateGroup.create(name: "Regular",company_id: self.id) 
+    RateGroup.create(name: "Iterative",company_id: self.id) 
   end
 end
