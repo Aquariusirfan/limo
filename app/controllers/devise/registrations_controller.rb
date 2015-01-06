@@ -17,6 +17,7 @@ class Devise::RegistrationsController < DeviseController
     build_resource(sign_up_params)
 
     resource_saved = resource.save
+    resource.add_role :company
     yield resource if block_given?
     if resource_saved
       if resource.active_for_authentication?
