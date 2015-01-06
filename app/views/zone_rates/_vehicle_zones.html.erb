@@ -152,6 +152,7 @@
     var id = $(element).attr('id');
     var source_id = $('.source_id').val();
     var destination_id = $('.destination_id').val();
+    var rate_group_id = $('.rate_group_id').val();
     if ($(element).is(':checked')) {
       var is_active = true;
       $.ajax({
@@ -162,6 +163,7 @@
           is_active: is_active,
           source_id: source_id,
           destination_id: destination_id,
+          rate_group_id: rate_group_id
         }
       }).done(function () {
         $('#' + id + '.vehicle').attr("readonly", false);
