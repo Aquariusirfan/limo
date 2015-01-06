@@ -23,12 +23,12 @@ class ApplicationController < ActionController::Base
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up)  { |u| u.permit(:email,:password,:password_confirmation,
-                                     :company_attributes=>[:name,:phone1,:phone2,
-                                     :show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,
-                                     :website,:address,:time_zone,:reservation_setting_attributes=>[:minimum_lead_time,:gratuity_rate,:tax_rate,:distance_type,:currency,:rate_to_display,:request_min_hours,:request_max_hours,:rate_disclaimer,:credit_card_disclaimer,:analytics_code]]) }
+          :company_attributes=>[:name,:phone1,:phone2,
+            :show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,
+            :website,:address,:time_zone,:reservation_setting_attributes=>[:minimum_lead_time,:gratuity_rate,:selectable_tip,:tax_rate,:distance_type,:currency,:rate_to_display,:request_min_hours,:request_max_hours,:request_summary,:confirmation_summary,:rate_disclaimer,:credit_card_disclaimer,:analytics_code]]) }
       devise_parameter_sanitizer.for(:account_update)  { |u| u.permit(:email,
-                                     :company_attributes=>[:id,:name,:phone1,:phone2,
-                                     :show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,
-                                     :website,:address,:time_zone]) }
+          :company_attributes=>[:id,:name,:phone1,:phone2,
+            :show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,
+            :website,:address,:time_zone]) }
     end
   end
