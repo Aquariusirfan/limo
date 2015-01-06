@@ -10,7 +10,7 @@ class ZoneRatesController < ApplicationController
   def create
     #k == vehicle_type-id and v == zone_rate_value
     params[:hash].each do |k,v|
-      zone_rate = ZoneRate.where(:vehicle_type=>k,:destination_id=>params[:destination_id],:source_id=>params[:source_id],:company_id=>current_user.company.id)
+      zone_rate = ZoneRate.where(:vehicle_type_id=>k,:destination_id=>params[:destination_id],:source_id=>params[:source_id],:company_id=>current_user.company.id)
       if zone_rate.size > 0
         zone_rate.first.update_attribute(:zone_rate,v)
       else
@@ -19,7 +19,7 @@ class ZoneRatesController < ApplicationController
       
     end
   end
-  
+  #using this method in jQuery.
   def find_zone_rate
     zone_rates = ZoneRate.where(:destination_id=>params[:destination_id],:source_id=>params[:source_id],:company_id=>current_user.company.id)
     if zone_rates.size > 0
@@ -27,5 +27,13 @@ class ZoneRatesController < ApplicationController
     else
       render :json => {'status'=>"failure"}
     end
+  end
+  
+  #Set is_active through jQuery
+  
+  def set_is_active
+    zone_rate = ZoneRate.where(:vehicle_type_id=>params[:id],:destination_id=>params[:destination_id],:source_id=>params[:source_id],:company_id=>current_user.company.id)
+    zone_rate.first.update_attribute(:is_active,params[:is_active])
+    render :json=>{'status'=>"success"}
   end
 end

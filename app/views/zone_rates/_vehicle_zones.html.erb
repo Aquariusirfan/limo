@@ -6,22 +6,22 @@
   <div class="focus-box">
 
     <div>
-      <div class="m-b-md">Set up zone to zone rates for
+      <!--<div class="m-b-md">Set up zone to zone rates for
         <div class="btn-group">
           <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle ng-binding">Regular rate group <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <li><a href="##">Regular rate group</a></li>
           </ul>
         </div>
-      </div>
+      </div>-->
       <div>
-        <select class="form-control d-ib w-md source_id" onchange="set_vehicles_rate();">
+        <select class="form-control d-ib w-md source_id" onchange="set_vehicles_rate_on_view();">
           <%current_user.company.company_zones.each do |zone|%>
             <option value="<%= zone.id %>"><%= zone.name %></option>
           <%end%>
         </select>
         <span class="m-l-sm"> to</span>
-        <select  class="form-control d-ib w-md destination_id" onchange="set_vehicles_rate();">
+        <select  class="form-control d-ib w-md destination_id" onchange="set_vehicles_rate_on_view();">
           <%current_user.company.company_zones.each do |zone|%>
             <option value="<%= zone.id %>"><%= zone.name %></option>
           <%end%>
@@ -50,9 +50,9 @@
                   </div>
                 </td>
 
-                <td>
-                  <input type="checkbox" id="">
-                  <small style="display: none;">Rate not set</small>
+                <td id="rate_td<%= v.id %>" class="vehicle_td">
+                  <!--<input type="checkbox" id="">-->
+                  <small>Rate not set</small>
                 </td>
               </tr>
             <%end%>
@@ -70,7 +70,7 @@
 
 </div>
 <script type="text/javascript">
-  set_vehicles_rate();
+  set_vehicles_rate_on_view();
   function set_vehicles_zone_rate() {
     var ids = [];
     var values = [];
@@ -95,7 +95,7 @@
     });
   }
 
-  function set_vehicles_rate() {
+  function set_vehicles_rate_on_view() {
     var source_id = $('.source_id').val();
     var destination_id = $('.destination_id').val();
     $.ajax({
@@ -110,21 +110,79 @@
         for (var i = 0; i < response["zone_rates"].length; i++)
         {
           $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').val(response["zone_rates"][i]["zone_rate"]);
-          /*if (response["zone_rates"][i]["is_active"]===false){
-            $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly",true);
+          if (response["zone_rates"][i]["zone_rate"] === '') {
+            $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly", false);
+            $('#rate_td' + response["zone_rates"][i]["vehicle_type_id"]).html('<small>Rate not set</small>');
           }
           else
           {
-           $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly",false); 
-          }*/
+            if (response["zone_rates"][i]["is_active"] === false) {
+              $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly", true);
+              $('#rate_td' + response["zone_rates"][i]["vehicle_type_id"]).html('<input type="checkbox" id = "' + response["zone_rates"][i]["vehicle_type_id"] + '" onclick="set_vehicle_is_active(this)">');
+            }
+            else
+            {
+              $('#' + response["zone_rates"][i]["vehicle_type_id"] + '.vehicle').attr("readonly", false);
+              $('#rate_td' + response["zone_rates"][i]["vehicle_type_id"]).html('<input type="checkbox" id = "' + response["zone_rates"][i]["vehicle_type_id"] + '" onclick="set_vehicle_is_active(this)" checked="checked">');
+            }
+          }
         }
       }
       else
       {
         $('.vehicle').each(function () {
           $(this).val('');
+          $(this).attr("readonly", false);
+        });
+
+        $('.vehicle_td').each(function () {
+          $(this).html('<small>Rate not set</small>');
         });
       }
     });
   }
+
+  ////////////////////////////////////////////////////////////////
+
+  function set_vehicle_is_active(element) {
+    var id = $(element).attr('id');
+    var source_id = $('.source_id').val();
+    var destination_id = $('.destination_id').val();
+    if ($(element).is(':checked')) {
+      var is_active = true;
+      $.ajax({
+        url: '/zone_rates/set_is_active',
+        type: "GET",
+        data: {
+          id: id,
+          is_active: is_active,
+          source_id: source_id,
+          destination_id: destination_id
+        }
+      }).done(function () {
+        $('#' + id + '.vehicle').attr("readonly", false);
+      });
+    }
+    else
+    {
+      var is_active = false;
+      $.ajax({
+        url: '/zone_rates/set_is_active',
+        type: "GET",
+        data: {
+          id: id,
+          is_active: is_active,
+          source_id: source_id,
+          destination_id: destination_id
+        }
+      }).done(function () {
+        $('#' + id + '.vehicle').attr("readonly", true);
+      });
+    }
+  }
+
+
+
+
+
 </script>

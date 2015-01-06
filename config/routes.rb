@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :zone_rates do
     collection do
       get :find_zone_rate
+      get :set_is_active
     end
   end
   resources :company_zones
