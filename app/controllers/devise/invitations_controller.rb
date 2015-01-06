@@ -1,5 +1,5 @@
-class Users::InvitationsController < DeviseController
-  layout "admin"
+class Devise::InvitationsController < DeviseController
+  layout "login"
   before_action :authenticate_user!
   prepend_before_filter :authenticate_inviter!, :only => [:new, :create]
   prepend_before_filter :has_invitations_left?, :only => [:create]
@@ -19,8 +19,6 @@ class Users::InvitationsController < DeviseController
     resource_invited = resource.errors.empty?
 
     resource.add_role params[:role]
-    #  resource.add_role :driver
-
     yield resource if block_given?
 
     if resource_invited
