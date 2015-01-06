@@ -22,6 +22,6 @@ class Admin::CompaniesController < ApplicationController
   
   private
   def company_params
-    params.require(:user).permit(:email,:password,:password_confirmation,:company_attributes=>[:id,:name,:phone1,:phone2,:show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,:website,:address,:time_zone,:reservation_setting_attributes=>[:minimum_lead_time,:gratuity_rate,:tax_rate,:distance_type,:currency,:rate_to_display,:request_min_hours,:request_max_hours,:rate_disclaimer,:credit_card_disclaimer,:analytics_code]])
+    params.require(:user).permit(:email,:password,:password_confirmation,:company_attributes=>[:id,:name,:phone1,:phone2,:show_driver_price,:dot_number,:lcc_mc,:license_number,:fax,:website,:address,:time_zone,:reservation_setting_attributes=>[:minimum_lead_time,:gratuity_rate,:selectable_tip,:tax_rate,:distance_type,:currency,:rate_to_display,:request_min_hours,:request_summary,:confirmation_summary,:request_max_hours,:rate_disclaimer,:credit_card_disclaimer,:analytics_code]])
   end
 end
