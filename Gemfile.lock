@@ -58,6 +58,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.4.0)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     erubis (2.7.0)
     execjs (2.2.2)
     hike (1.2.3)
@@ -153,6 +156,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.0.0)
   devise
+  devise_invitable
   jbuilder (~> 2.0)
   jquery-rails
   paperclip (~> 4.2)
