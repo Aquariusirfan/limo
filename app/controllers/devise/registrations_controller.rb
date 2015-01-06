@@ -1,11 +1,13 @@
 class Devise::RegistrationsController < DeviseController
   prepend_before_filter :require_no_authentication, only: [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
-
+  layout "login"
   # GET /resource/sign_up
   def new
     build_resource({})
-    set_minimum_password_length
+    #set_minimum_password_length
+    company = resource.build_company
+    company.build_reservation_setting
     yield resource if block_given?
     respond_with self.resource
   end
@@ -28,7 +30,7 @@ class Devise::RegistrationsController < DeviseController
       end
     else
       clean_up_passwords resource
-      set_minimum_password_length
+      #set_minimum_password_length
       respond_with resource
     end
   end
