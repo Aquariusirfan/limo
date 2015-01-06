@@ -31,7 +31,7 @@
                     <tbody>
                       <%@vehicle_type.distance_estimation_settings.each do |setting|%>
                         <tr>
-                          <td><%= setting.rate_group %></td>
+                          <td><%= RateGroup.find(setting.rate_group_id).name %></td>
                           <td><%= setting.up_to_mile %></td>
                           <td><%= setting.base_charge %></td>
                           <td><%= setting.cost_per_distance %></td>
@@ -62,7 +62,7 @@
                       <div class="form-group">
                         <label for="type" class="control-label col-sm-3">Rate group</label>
                         <div class="controls col-sm-8">
-                          <%= select_tag 'distance_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name}),{class: "form-control"} %>
+                          <%= select_tag 'distance_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]}),{class: "form-control"} %>
                         </div>
                       </div>
 
@@ -145,7 +145,7 @@
                   <tbody>
                     <%@vehicle_type.hourly_estimation_settings.each do |setting|%>
                       <tr>
-                        <td><%= setting.rate_group %></td>
+                        <td><%= RateGroup.find(setting.rate_group_id).name %></td>
                         <td><%= setting.service %></td>
                         <td><%= setting.up_to_hours %> hour(s)</td>
                         <td>$<%= setting.hourly_rate %></td>
@@ -179,7 +179,7 @@
                           <div class="form-group">
                             <label for="type" class="control-label col-sm-3">Rate group</label>
                             <div class="controls col-sm-8">
-                              <%= select_tag 'hourly_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name}),{class: "form-control"} %>
+                              <%= select_tag 'hourly_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]}),{class: "form-control"} %>
                             </div>
                           </div>
 
@@ -254,7 +254,7 @@
   function add_distance_estimation_settings()
   {
     $('#add_distance_estimate_modal').modal('hide');
-    var rate_group = $('#distance_rate_group').val();
+    var rate_group_id = $('#distance_rate_group').val();
     var up_to_mile = $('#up_to_mile').val();
     var base_charge = $('#base_charge').val();
     var cost_per_distance = $('#cost_per_distance').val();
@@ -264,7 +264,7 @@
       type: "POST",
       data: {
         id: id,
-        rate_group: rate_group,
+        rate_group_id: rate_group_id,
         up_to_mile: up_to_mile,
         base_charge: base_charge,
         cost_per_distance: cost_per_distance,
@@ -276,7 +276,7 @@
   function add_hourly_estimation_settings()
   {
     $('#add_hourly_estimate_modal').modal('hide');
-    var rate_group = $('#hourly_rate_group').val();
+    var rate_group_id = $('#hourly_rate_group').val();
     var up_to_hours = $('#up_to_hours').val();
     var service = "all";
     var hourly_rate = $('#hourly_rate').val();
@@ -285,7 +285,7 @@
       type: "POST",
       data: {
         id: id,
-        rate_group: rate_group,
+        rate_group_id: rate_group_id,
         up_to_hours: up_to_hours,
         service: service,
         hourly_rate: hourly_rate

@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="type" class="control-label col-sm-3">Rate group</label>
       <div class="controls col-sm-8">
-        <%= select_tag 'edit_hourly_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| r.name},@setting.rate_group),{class: "form-control"} %>
+        <%= select_tag 'edit_hourly_rate_group', options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]},@setting.rate_group_id),{class: "form-control"} %>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
   function update_hourly_estimation_settings()
   {
     $('#edit_hourly_estimate_modal').modal('hide');
-    var rate_group = $('#edit_hourly_rate_group').val();
+    var rate_group_id = $('#edit_hourly_rate_group').val();
     var up_to_hours = $('#edit_up_to_hours').val();
     var service = "all";
     var hourly_rate = $('#edit_hourly_rate').val();
@@ -50,7 +50,7 @@
       type: "PUT",
       data: {
         id: setting_id,
-        rate_group: rate_group,
+        rate_group_id: rate_group_id,
         up_to_hours: up_to_hours,
         service: service,
         hourly_rate: hourly_rate

@@ -1,7 +1,7 @@
 class CreateHourlyEstimationSettings < ActiveRecord::Migration
   def change
     create_table :hourly_estimation_settings do |t|
-      t.string :rate_group
+      t.integer :rate_group_id
       t.string :service
       t.float :up_to_hours
       t.float :hourly_rate

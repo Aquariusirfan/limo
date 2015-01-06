@@ -62,11 +62,11 @@ class VehicleTypesController < ApplicationController
   end
   
   def add_distance_estimation_settings
-    DistanceEstimationSetting.create(rate_group: params[:rate_group],up_to_mile: params[:up_to_mile],base_charge: params[:base_charge],cost_per_distance: params[:cost_per_distance],miles_per_distance: params[:miles_per_distance],vehicle_type_id: @vehicle_type.id,company_id: @vehicle_type.company.id)
+    DistanceEstimationSetting.create(rate_group_id: params[:rate_group_id],up_to_mile: params[:up_to_mile],base_charge: params[:base_charge],cost_per_distance: params[:cost_per_distance],miles_per_distance: params[:miles_per_distance],vehicle_type_id: @vehicle_type.id,company_id: @vehicle_type.company.id)
   end
   
   def add_hourly_estimation_settings
-    HourlyEstimationSetting.create(rate_group: params[:rate_group],up_to_hours: params[:up_to_hours],service: params[:service],hourly_rate: params[:hourly_rate],vehicle_type_id: @vehicle_type.id,company_id: @vehicle_type.company.id)
+    HourlyEstimationSetting.create(rate_group_id: params[:rate_group_id],up_to_hours: params[:up_to_hours],service: params[:service],hourly_rate: params[:hourly_rate],vehicle_type_id: @vehicle_type.id,company_id: @vehicle_type.company.id)
   end
   
 

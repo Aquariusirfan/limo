@@ -6,7 +6,7 @@ class HourlyEstimationSettingsController < ApplicationController
   end
   
   def update
-    @setting.update_attributes(rate_group: params[:rate_group],up_to_hours: params[:up_to_hours],service: params[:service],hourly_rate: params[:hourly_rate])
+    @setting.update_attributes(rate_group_id: params[:rate_group_id],up_to_hours: params[:up_to_hours],service: params[:service],hourly_rate: params[:hourly_rate])
     @vehicle_type = @setting.vehicle_type
   end
   
