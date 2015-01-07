@@ -29,6 +29,7 @@
           <li><%= link_to "Places", places_path %></li>
           <li><%= link_to "Affiliates", affiliates_path %></li>
           <li><%= link_to "Invitations", new_user_invitation_path %></li>
+          <li><%= link_to "Affiliate Invitations",  new_affiliate_invitation_path %></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -44,7 +45,7 @@
 
       <%if current_user%>
         <li class="dropdown user-dropdown">
-          <%#*<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.company.name %> <b class="caret"></b></a>%>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.company.name %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
             <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
