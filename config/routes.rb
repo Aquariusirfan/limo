@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   
   devise_for :users
   as :user do
-   get '/affiliates/invitation/new' => 'affiliate/invitations#new', :as => :new_affiliate_invitation 
-   post '/affiliates/invitation' => 'affiliate/invitations#create', :as => :affiliate_invitation 
+    get '/affiliates/invitation/new' => 'affiliate/invitations#new', :as => :new_affiliate_invitation
+    post '/affiliates/invitation' => 'affiliate/invitations#create', :as => :affiliate_invitation
   end
   
   root to: 'home#index'
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :services
   resources :places
   resources :affiliates
+  resources :admin_users
   resources :zone_rates do
     collection do
       get :find_zone_rate

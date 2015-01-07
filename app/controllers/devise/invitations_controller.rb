@@ -19,7 +19,6 @@ class Devise::InvitationsController < DeviseController
     resource_invited = resource.errors.empty?
 
     resource.add_role params[:role]
-    resource.update_attribute(:company_id,current_user.company.id)
     yield resource if block_given?
 
     if resource_invited
@@ -93,7 +92,7 @@ class Devise::InvitationsController < DeviseController
   end
 
   def invite_params
-    devise_parameter_sanitizer.sanitize(:invite)
+     params.require(:user).permit(:email,:company_id)
   end
 
   def update_resource_params

@@ -18,8 +18,7 @@ class Affiliate::InvitationsController < DeviseController
     self.resource = invite_resource
     resource_invited = resource.errors.empty?
 
-    resource.add_role params[:role]
-    resource.update_attribute(:company_id,current_user.company.id)
+    resource.add_role :affiliate
     yield resource if block_given?
 
     if resource_invited
@@ -93,7 +92,8 @@ class Affiliate::InvitationsController < DeviseController
   end
 
   def invite_params
-    devise_parameter_sanitizer.sanitize(:invite)
+    params.require(:user).permit(:email, :first_name, :last_name, :phone,:company_id)
+#    devise_parameter_sanitizer.sanitize(:invite)
   end
 
   def update_resource_params

@@ -1,5 +1,6 @@
 class AffiliatesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_affiliate, only: [:show,:edit,:update,:destroy]
 
   def index
     @affiliates = Affiliate.all
@@ -20,15 +21,12 @@ class AffiliatesController < ApplicationController
   end
 
   def show
-    @affiliate = Affiliate.find(params[:id])
   end
 
   def edit
-    @affiliate = Affiliate.find(params[:id])
   end
 
   def update
-    @affiliate = Affiliate.find(params[:id])
     if @affiliate.update_attributes(affiliate_params)
       flash[:notice] = "Affiliate was successfully updated."
       redirect_to affiliates_path
@@ -38,7 +36,6 @@ class AffiliatesController < ApplicationController
   end
 
   def destroy
-    @affiliate = Affiliate.find(params[:id])
     @affiliate.destroy
     respond_to do |format|
       format.html { redirect_to affiliates_url, notice: 'Affiliates was successfully destroyed.' }
@@ -50,6 +47,10 @@ class AffiliatesController < ApplicationController
 
   def affiliate_params
     params[:affiliate].permit!
+  end
+
+  def set_affiliate
+    @affiliate = Affiliate.find(params[:id])
   end
 
 end
