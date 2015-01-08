@@ -1,10 +1,24 @@
 <%if @users.present?%>
-  <div>
-    <div class="form-group">
-      <%=  form_tag admin_users_path, :class => "navbar-form navbar-left",:method => :get,:remote => true do%>
-        Search User here:<%= text_field_tag "search",'', :class=> "form_control", :placeholder=>"Search User ..." , :style => "width: 290px;" %>
-      <% end %>
-    </div>
+
+  <div class="bs-example">
+    <nav role="navigation" class="navbar navbar-default">
+      <div class="navbar-header">
+        <button data-target="#bs-example-navbar-collapse-2" data-toggle="collapse" class="navbar-toggle" type="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Search User</a>
+      </div>
+      <div id="bs-example-navbar-collapse-2" class="collapse navbar-collapse">
+        <%=  form_tag admin_users_path, :class => "navbar-form navbar-left",:method => :get,:remote => true do%>
+          <div class="form-group">
+            <%= text_field_tag "search",'', :class=> "form_control", :placeholder=>"Search ..." , :style => "width: 290px;" %>
+          </div>
+        <%end%>
+      </div>
+    </nav>
   </div>
 
   <table class="table table-striped">
@@ -29,11 +43,4 @@
   <h4>No user found.</h4>
 <%end%>
 
-
-
-  <%# @roles.each do |f| %>
-
-  <%#= f.email %>
-
-  <%#end%>
 
