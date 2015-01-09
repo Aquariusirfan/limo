@@ -1,0 +1,89 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Accounts</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <% if @account.new_record? %>
+          <li class="active"><i class="fa fa-edit"></i> New Account</li>
+        <%else%>
+          <li class="active"><i class="fa fa-edit"></i> Edit Account</li>
+        <%end%>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= form_for([@account],:html => {:class=>"form-horizontal"}) do |f| %>
+        <%= f.hidden_field :company_id, :value=> current_user.company.id %>
+        <% if @account.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+            <ul>
+              <% @account.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <label>Name*</label>
+          <%= f.text_field :name, :class=> "form-control", :required=>true %>
+        </div>
+
+        <div class="form-group">
+          <label>Contact Name</label>
+          <%= f.text_field :contact_name, :class=> "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Contact Phone</label>
+          <%= f.text_field :contact_phone, :class=> "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Contact Email</label>
+          <%= f.text_field :contact_email, :class=> "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <label>Customers</label>
+          <input type="text" id="demo-input-facebook-theme" name="customer_ids" value=""  />
+        </div>
+
+        <div class="form-group">
+          <label>Rate Groups</label>
+          <%= f.select :rate_group_id, options_for_select(current_user.company.rate_groups.all.collect { |c| [c.name,c.id]  },f.object.rate_group_id), {}, :class=> "form-control" %>
+        </div>
+
+        <div class="actions">
+          <% if @account.new_record? %>
+            <%= f.submit "Create Company Account", :class=> "btn btn-primary"%>
+          <%else%>
+            <%= f.submit "Update Company Account", :class=> "btn btn-primary"%>
+          <%end%>
+          <%= link_to 'Back', accounts_path ,:class => "btn btn-minier btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div><!-- /.row -->
+
+</div>
+
+<script type="text/javascript">
+  $("#demo-input-facebook-theme").tokenInput('/fetch_customers',{
+    prePopulate: [<%= raw (@customers.collect{ |customer| "{id : '#{customer.id}', first_name : '#{customer.first_name}'  }" }.join(',')) unless @customers.blank? %>],
+    propertyToSearch: 'first_name',
+    tokenValue: 'id',
+    preventDuplicates:  true,
+    hintText: "Enter customers that are related to the entry",
+    noResultsText: "Press enter to submit",
+    searchingText: "Search customers",
+    theme: "facebook"
+  });
+
+</script>
+

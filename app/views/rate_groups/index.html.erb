@@ -614,13 +614,13 @@
             <h3 id="myModalLabel">Rate group</h3>
           </div>
           <%= form_for :rate_group,:url=>"/rate_groups",:html=>{:class=>"form form-horizontal"},:remote=>true do |f| %>
+            <%= f.hidden_field :company_id, :value=> current_user.company.id %>
             <div class="modal-body visible-modal-body">
               <div class="form-group">
                 <label class="control-label col-sm-3">Name</label>
                 <div class="controls col-sm-8">
                   <%= f.text_field :name,:class=>"form-control" %>
                 </div>
-
               </div>
               <div class="modal-footer">
                 <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-default">Close</button>
@@ -632,4 +632,3 @@
       </div>
     </div>
   </div>
-  

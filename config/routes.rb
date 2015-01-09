@@ -34,8 +34,9 @@ Rails.application.routes.draw do
   resources :reservations
   resources :affiliates
   resources :admin_users
+  resources :accounts
+  resources :customers
   
-
   resources :zone_rates do
     collection do
       get :find_zone_rate
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
   resources :reservations
   resources :rate_groups
 
-    
+  get "/fetch_customers" => "accounts#fetch_customers"
+
 
 end

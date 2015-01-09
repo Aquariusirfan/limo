@@ -1,0 +1,52 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Accounts</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-edit"></i> Show Account</li>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table m-t-lg">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td><%= @account.name %></td>
+          </tr>
+
+          <tr>
+            <th>Contact Name</th>
+            <td><%= @account.contact_name %></td>
+          </tr>
+
+          <tr>
+            <th>Contact Phone</th>
+            <td><%= @account.contact_phone %></td>
+          </tr>
+
+          <tr>
+            <th>Contact Email</th>
+            <td><%= @account.contact_email %></td>
+          </tr>
+
+          <tr>
+            <th>Rate Group</th>
+            <td><%= @account.rate_group_id%></td>
+          </tr>
+        </thead>
+      </table>
+
+      <%= link_to 'Edit', edit_account_path(@account),:class => "btn btn-minier btn-primary"  %> |
+      <%= link_to 'Back', accounts_path,:class => "btn btn-minier btn-primary"  %>
+    </div>
+  </div><!-- /.row -->
+
+</div><!--
+
+
+

@@ -12,6 +12,8 @@
  *= require bootstrap.css
  *= require jquery.timepicker.css
  *= require datepicker.css
+ *= require token-input.css
+ *= require token-input-facebook.css
  *= require sb-admin.css
  *= require font-awesome.css
 */

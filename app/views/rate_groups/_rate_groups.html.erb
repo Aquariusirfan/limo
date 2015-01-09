@@ -8,6 +8,12 @@
       <option value="1">abc</option>
     </select>
 
+    <div class="form-group">
+      <label>Service type</label>
+      <%#= f.select :group_rate_id, options_for_select(current_user.company.group_rates.all.collect { |c| [c.name,c.id]  },f.object.group_rate_id),{}, :class=>"form-control" %>
+    </div>
+
+
     <table class="table table-condensed no-stripe-table">
       <tbody><tr>
           <td class="ng-binding">3 Distance rates</td>

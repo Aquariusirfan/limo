@@ -15,6 +15,7 @@
 //= require countries
 //= require bootstrap
 //= require jquery.timepicker
+//= require jquery.tokeninput
 //= require bootstrap-datepicker
 //= require date_time
 

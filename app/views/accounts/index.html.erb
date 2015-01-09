@@ -1,0 +1,58 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Accounts</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-edit"></i> All Accounts</li>
+      </ol>
+      <%= render 'layouts/messages' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="table-responsive">
+        <% unless @accounts.blank? %>
+          <table class="table table-bordered table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th># of Customers</th>
+                <th>Contact</th>
+                <th>Contact Phone</th>
+                <th>Contact Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @accounts.each do |account| %>
+                <tr>
+                  <td><%= link_to account.name, account_path(account) %></td>
+                  <td><%= account.customers.size %></td>
+                  <td><%= account.contact_name %></td>
+                  <td><%= account.contact_phone %></td>
+                  <td><%= account.contact_email %></td>
+                  <td><%= link_to 'Edit', '##',:class => "btn btn-minier btn-primary" %>
+                    <%= link_to 'Destroy', account_path(account), :class => "btn medium btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <%else%>
+          No Account Found.
+        <%end%>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <a class="btn btn-primary btn-block" href="/rate_groups">
+        Rate groups and rate adjustments
+      </a>
+    </div>
+
+  </div>
+  <br/>
+
+  <%= link_to 'New Account', new_account_path ,:class => "btn btn-minier btn-primary" %>
+</div>
