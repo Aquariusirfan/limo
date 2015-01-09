@@ -6,15 +6,7 @@ class RateGroupsController < ApplicationController
   end
   
   def create
-#    puts 'xxxxxxxxxxxxxxxxxx' , params.inspect
-#    ddd
-    @rate_group = RateGroup.new(rate_group_params)
-    if @rate_group.save
-      flash[:notice] = "Rate Group was successfully created."
-      redirect_to rate_groups_path
-    else
-      flash[:notice] = "Error."
-    end
+    RateGroup.create(rate_group_params)
   end
   
   private

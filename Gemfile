@@ -50,3 +50,5 @@ gem "paperclip", "~> 4.2"
 gem 'aws-sdk'
 
 gem 'devise_invitable'
+
+gem 'carmen-rails'

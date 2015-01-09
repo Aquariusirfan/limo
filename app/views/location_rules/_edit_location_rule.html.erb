@@ -1,0 +1,86 @@
+<%= form_for @location_rule,:html=>{:class=>"form form-horizontal"},remote: true do |f| %>
+  <div class="modal-body visible-modal-body">
+    <input type="hidden">
+    <div class="form-group">
+      <label class="control-label col-sm-3">Name</label>
+      <div class="controls col-sm-8">
+        <%= f.text_field :name,class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group select optional">
+        <label class="control-label col-sm-3">Location type</label>
+
+        <div class="controls col-sm-8">
+          <%= f.select :location_type , options_for_select(["Pickup","Dropoff","Pickup or dropoff","Pickup and dropoff"],f.object.location_type),{},{class: "select form-control"} %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Condition type</label>
+
+          <div class="controls col-sm-8">
+            <%= f.select :condition_type , options_for_select(["In the same state","Is within radius of"]),{},{class: "select form-control",onclick: "hide_show_radius_address_in_location_rule_modal(this)"} %>
+            </div>
+          </div>
+
+          <div class="radius-fields">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Radius distance</label>
+              <div class="controls col-sm-8">
+                <div class="input-group">
+                  <%= f.text_field :radius_distance,class: "form-control" %>
+                    <span class="input-group-addon">miles</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="radius-fields">
+              <div class="form-group">
+                <label class="control-label col-sm-3">Address:</label>
+
+                <div class="controls col-sm-8">
+                  <%= f.text_field :address,placeholder: "Address Line..",class: "form-control" %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Zip / Postal Code</label>
+
+                  <div class="controls col-sm-8">
+                    <%= f.text_field :postal_code,placeholder: "Zip",class: "form-control" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-3">State / Province</label>
+
+                  <div class="controls col-sm-8">
+                    <%= f.subregion_select :state, 'US',{}, class: 'form-control'%>
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-3">Country</label>
+                    <div class="controls col-sm-8">
+                      <%= f.select :country, region_options_for_select(LocationRule.only_us_and_canada,f.object.country),{},{class: "form-control"} %>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-sm-3">Rate groups</label>
+                      <div class="controls col-sm-8">
+                        <%= f.select :rate_group_id , options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]},f.object.rate_group.id),{},{class: "select form-control"} %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-default">Close</button>
+                      <input type="submit" value="Save location rule" class="btn btn-primary" onclick="$('#location-rule-modal').modal('hide');">
+                    </div>
+                  <%end%>

@@ -18,6 +18,8 @@
 //= require jquery.tokeninput
 //= require bootstrap-datepicker
 //= require date_time
+//= require location_rules
+//= require schedule
 
 $(document).ready(function(){
     $('.datepicker').datepicker({

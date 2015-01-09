@@ -55,5 +55,8 @@ Rails.application.routes.draw do
 
   get "/fetch_customers" => "accounts#fetch_customers"
 
+  resources :location_rules
+  resources :schedules
+    
 
 end

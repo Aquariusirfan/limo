@@ -1,0 +1,135 @@
+<%= form_for @schedule,html: {class: "form form-horizontal"},remote: true do |f|%>
+    <div class="modal-body visible-modal-body">
+      <div class="form-group">
+        <label class="control-label col-sm-3">Schedule type</label>
+
+        <div class="controls col-sm-8">
+          <%= f.select :schedule_type, options_for_select(["Time of Day","Day of Week","Date Range"],f.object.schedule_type),{},{class: "form-control",id: "edit_schedule_type",onchange: "hide_show_day_week_date_in_schedule_modal(this);"} %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Name</label>
+
+          <div class="controls col-sm-8">
+            <%= f.text_field :name,class: "form-control" %>
+            </div>
+          </div>
+
+
+          <div class="time_of_day">
+
+            <div class="form-group">
+              <label class="control-label col-sm-3">Start time</label>
+
+              <div class="controls col-sm-8">
+                <%= f.text_field :start_time , class: "form-control" %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">End time</label>
+
+                <div class="controls col-sm-8">
+                  <%= f.text_field :end_time , class: "form-control" %>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="day_of_week">
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Monday</label>
+
+                  <div class="controls col-sm-8">
+
+                    <label class="checkbox">
+                      <%= f.check_box :monday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Tuesday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :tuesday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Wednesday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :wednesday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Thursday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :thursday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Friday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :friday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Saturday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :saturday %>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Sunday</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="checkbox">
+                      <%= f.check_box :sunday %>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="date_range">
+
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Start date</label>
+                  <div class="controls col-sm-8">
+                    <%= f.text_field :start_date ,class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3">End date</label>
+                    <div class="controls col-sm-8">
+                      <%= f.text_field :end_date ,class: "form-control" %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3">Rate groups</label>
+                    <div class="controls col-sm-8">
+                      <%= f.select :rate_group_id , options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]},f.object.rate_group_id),{},{class: "select form-control"} %>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-default">Close</button>
+                    <input type="submit" value="Save Schedule" onclick="$('#schedule-modal').modal('hide');" class="btn btn-primary">
+                  </div>
+                <%end%>
