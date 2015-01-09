@@ -32,13 +32,11 @@
       </div>
       <div class="rate-group-condition m-t-md">
         <p class="m-t-md m-b-md text-muted">Assigned schedules</p>
-        <table class="table table-condensed">
+        <div id="schedules">
 
-          <tbody>
-            <!-- ngRepeat: schedule in schedules -->
-          </tbody>
-        </table>
-        <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newSchedule(false)" href="#">
+        </div>
+
+        <a data-toggle="modal" class="btn btn-sm btn-default" href="#schedule-modal">
           <i class="fa fa-plus"> </i> Add new schedule
         </a>
       </div>
@@ -332,7 +330,7 @@
 
 
                     </div>
-
+                    <!--edit-location-rule-modal-->
                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal tall-modal" id="edit_location_rule_modal">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -346,6 +344,170 @@
                           </div>
                         </div>
                       </div>
-
-
                     </div>
+                    <!----schedule modal--------->
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal" id="schedule-modal">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                            <h3 ng-show="active_schedule.is_blackout" id="myModalLabel" class="ng-hide">Blackout Schedule</h3>
+                            <h3 ng-show="!active_schedule.is_blackout" id="myModalLabel" class="">Schedule</h3>
+                          </div>
+                          <%= form_for :schedule,url: schedules_path,html: {class: "form form-horizontal"},remote: true do |f|%>
+                              <div class="modal-body visible-modal-body">
+                                <div class="form-group">
+                                  <label class="control-label col-sm-3">Schedule type</label>
+
+                                  <div class="controls col-sm-8">
+                                    <%= f.select :schedule_type, options_for_select(["Time of Day","Day of Week","Date Range"]),{},{class: "form-control schedule_type",onchange: "hide_show_day_week_date_in_schedule_modal(this)"} %>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-sm-3">Name</label>
+
+                                    <div class="controls col-sm-8">
+                                      <%= f.text_field :name,class: "form-control" %>
+                                      </div>
+                                    </div>
+
+
+                                    <div class="time_of_day">
+
+                                      <div class="form-group">
+                                        <label class="control-label col-sm-3">Start time</label>
+
+                                        <div class="controls col-sm-8">
+                                          <%= f.text_field :start_time , class: "form-control" %>
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="control-label col-sm-3">End time</label>
+
+                                          <div class="controls col-sm-8">
+                                            <%= f.text_field :end_time , class: "form-control" %>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                        <div class="day_of_week">
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Monday</label>
+
+                                            <div class="controls col-sm-8">
+
+                                              <label class="checkbox">
+                                                <%= f.check_box :monday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Tuesday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :tuesday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Wednesday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :wednesday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Thursday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :thursday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Friday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :friday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Saturday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :saturday %>
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Sunday</label>
+
+                                            <div class="controls col-sm-8">
+                                              <label class="checkbox">
+                                                <%= f.check_box :sunday %>
+                                              </label>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                        <div class="date_range">
+
+                                          <div class="form-group">
+                                            <label class="control-label col-sm-3">Start date</label>
+                                            <div class="controls col-sm-8">
+                                              <%= f.text_field :start_date ,class: "form-control" %>
+                                              </div>
+                                            </div>
+                                            <div class="form-group">
+                                              <label class="control-label col-sm-3">End date</label>
+                                              <div class="controls col-sm-8">
+                                                <%= f.text_field :end_date ,class: "form-control" %>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="form-group">
+                                              <label class="control-label col-sm-3">Rate groups</label>
+                                              <div class="controls col-sm-8">
+                                                <%= f.select :rate_group_id , options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]}),{},{class: "select form-control"} %>
+                                                </div>
+                                              </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-default">Close</button>
+                                              <input type="submit" value="Save Schedule" onclick="$('#schedule-modal').modal('hide');" class="btn btn-primary">
+                                            </div>
+                                          <%end%>
+                                        </div>
+                                      </div>
+
+
+                                    </div>
+                                    <!----edit schedule---->
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal" id="edit_schedule_modal">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                            <h3 ng-show="active_schedule.is_blackout" id="myModalLabel" class="ng-hide">Blackout Schedule</h3>
+                                            <h3 ng-show="!active_schedule.is_blackout" id="myModalLabel" class="">Schedule</h3>
+                                          </div>
+                                          <div id="edit_schedule">
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                    </div>

@@ -1,0 +1,15 @@
+<table class="table table-condensed">
+  <tbody>
+    <%@schedules.each do |schedule|%>
+      <tr>
+        <td>
+          <%= link_to "#{schedule.name}", edit_schedule_path(schedule), remote: true %>
+        </td>
+
+        <td>
+          <a class="btn mb1 btn-xs btn-danger" href="/schedules/<%= schedule.id %>" data-method="DELETE" data-remote="true">Remove from schedule</a>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

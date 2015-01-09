@@ -3,7 +3,9 @@ class LocationRulesController < ApplicationController
   before_action :set_location_rule,only: [:edit,:update,:destroy]
   
   def index
-    @location_rules = RateGroup.find(params[:group_rate_id]).location_rules
+     rate_group = RateGroup.find(params[:group_rate_id])
+    @location_rules = rate_group.location_rules
+    @schedules = rate_group.schedules
   end
   
     

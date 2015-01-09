@@ -1,0 +1,3 @@
+$('#edit_schedule').html("<%= escape_javascript(render :partial => "schedules/edit_schedule").html_safe %>");
+hide_show_day_week_date_in_schedule_modal($('#edit_schedule_type'));
+$('#edit_schedule_modal').modal('show');

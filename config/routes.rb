@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resources :reservations
   resources :rate_groups
   resources :location_rules
+  resources :schedules
     
 
 end
