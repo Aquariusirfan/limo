@@ -35,6 +35,11 @@ GEM
       nokogiri (>= 1.4.4)
     bcrypt (3.1.9)
     builder (3.2.2)
+    carmen (1.0.1)
+      unicode_utils (~> 1.4.0)
+    carmen-rails (1.0.1)
+      carmen (~> 1.0.0)
+      rails
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -145,6 +150,7 @@ GEM
     uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -153,6 +159,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
+  carmen-rails
   carrierwave
   coffee-rails (~> 4.0.0)
   devise

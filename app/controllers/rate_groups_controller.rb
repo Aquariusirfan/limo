@@ -6,8 +6,7 @@ class RateGroupsController < ApplicationController
   end
   
   def create
-    puts 'xxxxxxxxxxxxxxxxxx' , params.inspect
-    ddd
+    RateGroup.create(rate_group_params)
   end
   
   private

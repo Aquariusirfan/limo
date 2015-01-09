@@ -3,59 +3,349 @@
     <h3 class="page-title m-b-md">Manage rate group</h3>
 
     Select rate group:
-    <select class="form-control">
-      <option value="0" selected="selected">Regular</option>
-      <option value="1">abc</option>
-    </select>
 
-    <table class="table table-condensed no-stripe-table">
-      <tbody><tr>
-          <td class="ng-binding">3 Distance rates</td>
-          <td><a class="btn btn-mini hide" href="#">View</a> </td>
-        </tr>
-        <tr>
-          <td class="ng-binding">3  Hourly rates</td>
-          <td><a class="btn btn-mini hide" href="#">View</a> </td>
-        </tr>
-        <tr>
-          <td class="ng-binding">11  Flat rates</td>
-          <td><a class="btn btn-mini hide" href="#">View</a> </td>
-        </tr>
-      </tbody></table>
+    <%= select_tag 'rate_group',options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]}),{class: "form-control",onchange: "get_all_location_rules($(this).val());"} %>
 
-    <div class="rate-group-condition">
-      <p class="m-t-md m-b-md text-muted">Assigned location rules</p>
-      <table class="table table-condensed">
-        <tbody>
+      <table class="table table-condensed no-stripe-table">
+        <tbody><tr>
+            <td class="ng-binding">3 Distance rates</td>
+            <td><a class="btn btn-mini hide" href="#">View</a> </td>
+          </tr>
+          <tr>
+            <td class="ng-binding">3  Hourly rates</td>
+            <td><a class="btn btn-mini hide" href="#">View</a> </td>
+          </tr>
+          <tr>
+            <td class="ng-binding">11  Flat rates</td>
+            <td><a class="btn btn-mini hide" href="#">View</a> </td>
+          </tr>
+        </tbody></table>
 
-        </tbody>
-      </table>
-      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newLocationRule()" href="#">
-        <i class="fa fa-plus"> </i> Add new location rule
-      </a>
-    </div>
-    <div class="rate-group-condition m-t-md">
-      <p class="m-t-md m-b-md text-muted">Assigned schedules</p>
-      <table class="table table-condensed">
+      <div class="rate-group-condition">
+        <p class="m-t-md m-b-md text-muted">Assigned location rules</p>
+        <div id="location_rules">
 
-        <tbody>
-          <!-- ngRepeat: schedule in schedules -->
-        </tbody>
-      </table>
-      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newSchedule(false)" href="#">
-        <i class="fa fa-plus"> </i> Add new schedule
-      </a>
-    </div>
-    <div class="rate-group-condition large-top-margin">
-      <p class="m-t-md m-b-md text-muted">Assigned corporate accounts</p>
-      <table class="table table-condensed">
+        </div>
+        <a data-toggle="modal" class="btn btn-sm btn-default" href="#location-rule-modal" >
+          <i class="fa fa-plus"> </i> Add new location rule
+        </a>
+      </div>
+      <div class="rate-group-condition m-t-md">
+        <p class="m-t-md m-b-md text-muted">Assigned schedules</p>
+        <table class="table table-condensed">
 
-        <tbody>
-        </tbody>
-      </table>
-      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newCompanyAccount()" href="#">
-        <i class="fa fa-plus"> </i> Add new corporate account
-      </a>
+          <tbody>
+            <!-- ngRepeat: schedule in schedules -->
+          </tbody>
+        </table>
+        <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newSchedule(false)" href="#">
+          <i class="fa fa-plus"> </i> Add new schedule
+        </a>
+      </div>
+      <div class="rate-group-condition large-top-margin">
+        <p class="m-t-md m-b-md text-muted">Assigned corporate accounts</p>
+        <table class="table table-condensed">
+
+          <tbody>
+          </tbody>
+        </table>
+        <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newCompanyAccount()" href="#">
+          <i class="fa fa-plus"> </i> Add new corporate account
+        </a>
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="col-md-7">
+
+    <div class="tabbable tabs-right"> 
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#tab4">Rate groups <span class="badge"><%= RateGroup.count %></span></a>
+        </li>
+        <li class="">
+          <a data-toggle="tab" href="#tab1">Schedules <span class="badge">0</span></a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#tab2">Location Rules <span class="badge">0</span></a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#tab3">Corp. Accounts <span class="badge">3</span></a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#tab5">Discounts <span class="badge">0</span></a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div id="tab1" class="tab-pane">
+          <a data-toggle="modal" class="btn btn-sm btn-default" href="##"><i class="fa fa-plus"> </i> Add new schedule</a>
+
+          <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newSchedule(true)" href="#">
+            <i class="fa fa-plus"> </i> Add blackout schedule
+          </a>
+
+          <p class="m-t-md m-b-md text-muted">All Schedules</p>
+
+          <table class="table table-condensed table-striped">
+
+            <tbody>
+              <!-- ngRepeat: schedule in all_schedules -->
+            </tbody>
+          </table>
+
+          <table class="table table-condensed table-striped">
+            <thead>
+              <tr>
+                <th class="">Global Blackout Schedules</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ngRepeat: schedule in all_schedules -->
+            </tbody>
+          </table>
+
+
+
+        </div>
+        <div id="tab2" class="tab-pane">
+          <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newLocationRule()" href="#">
+            <i class="fa fa-plus"> </i> Add new location rule
+          </a>
+
+          <p class="text-muted m-t-md m-b md">All location rules</p>
+
+
+          <table class="table table-condensed table-striped">
+
+            <tbody>
+              <!-- ngRepeat: location_rule in all_location_rules -->
+            </tbody>
+          </table>
+        </div>
+        <div id="tab3" class="tab-pane">
+          <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newCompanyAccount()" href="#">
+            <i class="fa fa-plus"> </i> Add corporate account
+          </a>
+
+          <p class="m-t-md m-b-md text-muted">All corporate accounts</p>
+
+          <table class="table table-condensed table-striped">
+
+            <tbody>
+              <!-- ngRepeat: company_account in all_company_accounts --><tr ng-repeat="company_account in all_company_accounts" class="ng-scope">
+                <td><a ng-click="editCompanyAccount(company_account)" href="#" class="ng-binding">Leanne &amp; Patrick Nichol</a>
+                  <br>
+                  <small class="ng-binding"><span class="muted"><strong>Contact:</strong></span> Leanne 404.630.2266 lreid011@yahoo.com</small><br>
+                  <small class="ng-binding"><span class="muted"><strong>Enroll code:</strong></span> CMCT </small> <br>
+                  <small class="ng-binding"><span class="muted"><strong>Assigned rate groups:</strong></span>  </small>
+                </td>
+                <td>
+                  <a ng-click="deleteCompanyAccount(company_account)" class="btn mb1 btn-sm btn-danger" href="#">Delete</a>
+                </td>
+              </tr><!-- end ngRepeat: company_account in all_company_accounts --><tr ng-repeat="company_account in all_company_accounts" class="ng-scope">
+                <td><a ng-click="editCompanyAccount(company_account)" href="#" class="ng-binding">Pat Coulter</a>
+                  <br>
+                  <small class="ng-binding"><span class="muted"><strong>Contact:</strong></span> Pat Coulter Office: 206.937.1116  Home: 206.542.6393 wcou816767@aol.com</small><br>
+                  <small class="ng-binding"><span class="muted"><strong>Enroll code:</strong></span> AQZR </small> <br>
+                  <small class="ng-binding"><span class="muted"><strong>Assigned rate groups:</strong></span>  </small>
+                </td>
+                <td>
+                  <a ng-click="deleteCompanyAccount(company_account)" class="btn mb1 btn-sm btn-danger" href="#">Delete</a>
+                </td>
+              </tr><!-- end ngRepeat: company_account in all_company_accounts --><tr ng-repeat="company_account in all_company_accounts" class="ng-scope">
+                <td><a ng-click="editCompanyAccount(company_account)" href="#" class="ng-binding">Chris Gordon</a>
+                  <br>
+                  <small class="ng-binding"><span class="muted"><strong>Contact:</strong></span> Chris Gordon 404.790.1381 Cgordon@harrisbroadcast.com</small><br>
+                  <small class="ng-binding"><span class="muted"><strong>Enroll code:</strong></span> VKRH </small> <br>
+                  <small class="ng-binding"><span class="muted"><strong>Assigned rate groups:</strong></span>  </small>
+                </td>
+                <td>
+                  <a ng-click="deleteCompanyAccount(company_account)" class="btn mb1 btn-sm btn-danger" href="#">Delete</a>
+                </td>
+              </tr><!-- end ngRepeat: company_account in all_company_accounts -->
+            </tbody>
+          </table>
+
+        </div>
+        <div id="tab4" class="tab-pane active">
+
+          <a class="btn btn-sm btn-default" href="##" onclick="$('#rate-group-modal').modal('show');"> <i class="fa fa-plus"> </i>Add new rate group</a>
+
+
+          <p class="m-t-md m-b-md text-muted">All rate groups</p>
+          <table class="table table-striped">
+            <tbody data-update-url="/rate_groups/sort" class="sortable-table ui-sortable" style="">
+              <!-- ngRepeat: rate_group in rate_groups --><tr ng-repeat="rate_group in rate_groups" id="rate_group_737" style="" class="ng-scope">
+                <td><a ng-click="editRateGroup(rate_group)" href="#" class="ng-binding">Regular</a><br>
+
+                  <small class="ng-binding"><span class="muted">Schedules: </span></small><br>
+                  <small class="ng-binding"><span class="muted">Corporate accounts: </span></small><br>
+                  <small class="ng-binding"><span class="muted">Location rules: </span></small>
+
+                </td>
+
+                <td>
+
+                  <a class="btn btn-sm btn-danger" ng-click="deleteRateGroup(rate_group)" ng-show="rate_groups.length &gt; 1" href="#">Delete</a>
+
+                </td>
+              </tr><!-- end ngRepeat: rate_group in rate_groups --><tr ng-repeat="rate_group in rate_groups" id="rate_group_1266" style="" class="ng-scope">
+                <td><a ng-click="editRateGroup(rate_group)" href="#" class="ng-binding">abc</a><br>
+
+                  <small class="ng-binding"><span class="muted">Schedules: </span></small><br>
+                  <small class="ng-binding"><span class="muted">Corporate accounts: </span></small><br>
+                  <small class="ng-binding"><span class="muted">Location rules: </span></small>
+
+                </td>
+
+                <td>
+
+                  <a class="btn btn-sm btn-danger" ng-click="deleteRateGroup(rate_group)" ng-show="rate_groups.length &gt; 1" href="#">Delete</a>
+
+                </td>
+              </tr><!-- end ngRepeat: rate_group in rate_groups -->
+            </tbody>
+          </table>
+
+
+          <div ng-show="rate_groups.length &gt; 1" class="alert alert-info large-top-margin">
+            Drag and drop the rate group rows above to control the sequence in which the system looks for rates.
+          </div>
+
+
+        </div>
+        <div id="tab5" class="tab-pane">
+          <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newRateAdjustment()" href="#">
+            <i class="fa fa-plus"> </i> Add discount
+          </a>
+
+          <p class="text-muted m-t-md m-b-md">Corporate account base rate discounts</p>
+
+          <table class="table table-condensed table-striped">
+            <tbody>
+              <!-- ngRepeat: rate_adjustment in all_rate_adjustments -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--modal-->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal tall-modal" id="location-rule-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <h3 id="myModalLabel">Location Rule</h3>
+        </div>
+
+        <%= form_for :location_rule ,url: "/location_rules",:html=>{:class=>"form form-horizontal"},remote: true do |f| %>
+          <div class="modal-body visible-modal-body">
+            <input type="hidden">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Name</label>
+              <div class="controls col-sm-8">
+                <%= f.text_field :name,class: "form-control" %>
+                </div>
+              </div>
+              <div class="form-group select optional">
+                <label class="control-label col-sm-3">Location type</label>
+
+                <div class="controls col-sm-8">
+                  <%= f.select :location_type , options_for_select(["Pickup","Dropoff","Pickup or dropoff","Pickup and dropoff"]),{},{class: "select form-control"} %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3">Condition type</label>
+
+                  <div class="controls col-sm-8">
+                    <%= f.select :condition_type , options_for_select(["In the same state","Is within radius of"]),{},{class: "select form-control" ,onclick: "hide_show_radius_address_in_location_rule_modal(this)"} %>
+                    </div>
+                  </div>
+
+                  <div class="radius-fields">
+                    <div class="form-group">
+                      <label class="control-label col-sm-3">Radius distance</label>
+                      <div class="controls col-sm-8">
+                        <div class="input-group">
+                          <%= f.text_field :radius_distance,class: "form-control" %>
+                            <span class="input-group-addon">miles</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="radius-fields">
+                      <div class="form-group">
+                        <label class="control-label col-sm-3">Address:</label>
+
+                        <div class="controls col-sm-8">
+                          <%= f.text_field :address,placeholder: "Address Line..",class: "form-control" %>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-sm-3">Zip / Postal Code</label>
+
+                          <div class="controls col-sm-8">
+                            <%= f.text_field :postal_code,placeholder: "Zip",class: "form-control" %>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-sm-3">State / Province</label>
+
+                          <div class="controls col-sm-8">
+                            <%= f.subregion_select :state, 'US',{}, class: 'form-control'%>
+
+
+                            </div>
+                          </div>
+
+
+                          <div class="form-group">
+                            <label class="control-label col-sm-3">Country</label>
+                            <div class="controls col-sm-8">
+                              <%= f.select :country, region_options_for_select(LocationRule.only_us_and_canada),{},{class: "form-control"} %>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="control-label col-sm-3">Rate groups</label>
+                              <div class="controls col-sm-8">
+                                <%= f.select :rate_group_id , options_for_select(current_user.company.rate_groups.collect{|r| [r.name,r.id]}),{},{class: "select form-control"} %>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-default">Close</button>
+                              <input type="submit" value="Save location rule" class="btn btn-primary" onclick="$('#location-rule-modal').modal('hide');">
+                            </div>
+                          <%end%>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal tall-modal" id="edit_location_rule_modal">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                            <h3 id="myModalLabel">Location Rule</h3>
+                          </div>
+
+                          <div id="edit_location_rule">
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>

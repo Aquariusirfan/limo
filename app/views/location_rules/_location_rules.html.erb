@@ -1,0 +1,15 @@
+<table class="table table-condensed">
+  <tbody>
+    <%@location_rules.each do |location|%>
+      <tr>
+        <td>
+          <%= link_to "#{location.name}", edit_location_rule_path(location), remote: true %>
+        </td>
+
+        <td>
+          <a class="btn mb1 btn-xs btn-danger" href="/location_rules/<%= location.id %>" data-method="DELETE" data-remote="true">Remove from rate group</a>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

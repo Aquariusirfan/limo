@@ -21,6 +21,7 @@ class Company < ActiveRecord::Base
   has_many :services, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :rate_groups, dependent: :destroy
+  has_many :location_rules, dependent: :destroy
   
 
   accepts_nested_attributes_for :reservation_setting

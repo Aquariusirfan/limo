@@ -17,6 +17,7 @@
 //= require jquery.timepicker
 //= require bootstrap-datepicker
 //= require date_time
+//= require location_rules
 
 $(document).ready(function(){
     $('.datepicker').datepicker({
