@@ -31,8 +31,11 @@ Rails.application.routes.draw do
   resources :hourly_estimation_settings , only: [:edit,:update,:destroy] 
   resources :services
   resources :places
+  resources :reservations
   resources :affiliates
   resources :admin_users
+  
+
   resources :zone_rates do
     collection do
       get :find_zone_rate
@@ -45,7 +48,7 @@ Rails.application.routes.draw do
       get :re_assign_company_zone
     end
   end
-  resources :reservations
+
     
 
 end
