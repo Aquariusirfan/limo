@@ -1,0 +1,61 @@
+<div class="col-md-5">
+  <div class="well well-sm small">
+    <h3 class="page-title m-b-md">Manage rate group</h3>
+
+    Select rate group:
+    <select class="form-control">
+      <option value="0" selected="selected">Regular</option>
+      <option value="1">abc</option>
+    </select>
+
+    <table class="table table-condensed no-stripe-table">
+      <tbody><tr>
+          <td class="ng-binding">3 Distance rates</td>
+          <td><a class="btn btn-mini hide" href="#">View</a> </td>
+        </tr>
+        <tr>
+          <td class="ng-binding">3  Hourly rates</td>
+          <td><a class="btn btn-mini hide" href="#">View</a> </td>
+        </tr>
+        <tr>
+          <td class="ng-binding">11  Flat rates</td>
+          <td><a class="btn btn-mini hide" href="#">View</a> </td>
+        </tr>
+      </tbody></table>
+
+    <div class="rate-group-condition">
+      <p class="m-t-md m-b-md text-muted">Assigned location rules</p>
+      <table class="table table-condensed">
+        <tbody>
+
+        </tbody>
+      </table>
+      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newLocationRule()" href="#">
+        <i class="fa fa-plus"> </i> Add new location rule
+      </a>
+    </div>
+    <div class="rate-group-condition m-t-md">
+      <p class="m-t-md m-b-md text-muted">Assigned schedules</p>
+      <table class="table table-condensed">
+
+        <tbody>
+          <!-- ngRepeat: schedule in schedules -->
+        </tbody>
+      </table>
+      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newSchedule(false)" href="#">
+        <i class="fa fa-plus"> </i> Add new schedule
+      </a>
+    </div>
+    <div class="rate-group-condition large-top-margin">
+      <p class="m-t-md m-b-md text-muted">Assigned corporate accounts</p>
+      <table class="table table-condensed">
+
+        <tbody>
+        </tbody>
+      </table>
+      <a data-toggle="modal" class="btn btn-sm btn-default" ng-click="newCompanyAccount()" href="#">
+        <i class="fa fa-plus"> </i> Add new corporate account
+      </a>
+    </div>
+  </div>
+</div>
